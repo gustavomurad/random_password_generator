@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Simple Password Generator',
-      theme: AppTheme.theme,
+      theme: AppTheme.getTheme,
       home: MyHomePage(),
     );
   }

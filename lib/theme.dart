@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
-
-const PrimaryColor = const Color(0xFFa5a58d);
-const PrimaryColorLight = const Color(0xFFd6d6bd);
-const PrimaryColorDark = const Color(0xFF767660);
-
-const SecondaryColor = const Color(0xFFffe8d6);
-const SecondaryColorLight = const Color(0xFFffffff);
-const SecondaryColorDark = const Color(0xFFccb6a5);
-
-const Background = const Color(0xFFfffdf7);
-const TextColor = const Color(0xFF000000);
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static final ThemeData theme = _build();
+  static final primaryColor = const Color(0xFFa5a58d);
+  static final primaryColorLight = const Color(0xFFd6d6bd);
+  static final primaryColorDark = const Color(0xFF767660);
+
+  static final secondaryColor = const Color(0xFFffe8d6);
+  static final secondaryColorLight = const Color(0xFFffffff);
+  static final secondaryColorDark = const Color(0xFFccb6a5);
+
+  static final backgroundColor = const Color(0xFFfffdf7);
+  static final textColor = const Color(0xFF000000);
+
+  static final ThemeData getTheme = _build();
 
   static ThemeData _build() {
-    final ThemeData base = ThemeData.light();
+    final ThemeData baseTheme = ThemeData.light();
 
-    return base.copyWith(
-      accentColor: SecondaryColor,
+    return baseTheme.copyWith(
+      primaryTextTheme: GoogleFonts.robotoTextTheme(baseTheme.primaryTextTheme),
+      textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+      accentColor: secondaryColor,
       accentColorBrightness: Brightness.dark,
-      primaryColor: PrimaryColor,
-      primaryColorDark: PrimaryColorDark,
-      primaryColorLight: PrimaryColorLight,
+      primaryColor: primaryColor,
+      primaryColorDark: primaryColorDark,
+      primaryColorLight: primaryColorLight,
       primaryColorBrightness: Brightness.dark,
-      buttonTheme: base.buttonTheme.copyWith(
-        buttonColor: SecondaryColor,
+      buttonTheme: baseTheme.buttonTheme.copyWith(
+        buttonColor: secondaryColor,
         textTheme: ButtonTextTheme.primary,
       ),
       textButtonTheme: TextButtonThemeData(
@@ -34,29 +37,23 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          primary: TextColor,
-          backgroundColor: PrimaryColor,
+          primary: textColor,
+          backgroundColor: primaryColor,
         ),
       ),
       sliderTheme: SliderThemeData(
-        thumbColor: PrimaryColor,
-        activeTrackColor: PrimaryColor,
-        inactiveTrackColor: PrimaryColorLight,
+        thumbColor: primaryColor,
+        activeTrackColor: primaryColor,
+        inactiveTrackColor: primaryColorLight,
       ),
       switchTheme: SwitchThemeData().copyWith(
-        thumbColor: MaterialStateProperty.all<Color>(PrimaryColor),
-        trackColor: MaterialStateProperty.all<Color>(PrimaryColorDark),
-        overlayColor: MaterialStateProperty.all<Color>(PrimaryColorLight),
+        thumbColor: MaterialStateProperty.all<Color>(primaryColor),
+        trackColor: MaterialStateProperty.all<Color>(primaryColorDark),
+        overlayColor: MaterialStateProperty.all<Color>(primaryColorLight),
       ),
-      scaffoldBackgroundColor: Background,
-      cardColor: Background,
-      backgroundColor: Background,
-      textTheme: base.textTheme.copyWith(
-        headline4: base.textTheme.headline6!.copyWith(color: TextColor),
-        headline6: base.textTheme.headline6!.copyWith(color: TextColor),
-        bodyText2: base.textTheme.bodyText2!.copyWith(color: TextColor),
-        bodyText1: base.textTheme.bodyText1!.copyWith(color: TextColor),
-      ),
+      scaffoldBackgroundColor: backgroundColor,
+      cardColor: backgroundColor,
+      backgroundColor: backgroundColor,
     );
   }
 }
