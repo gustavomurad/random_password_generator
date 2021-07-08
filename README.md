@@ -2,5 +2,5 @@
 
 [![CI](https://github.com/gustavomurad/random_password_generator/actions/workflows/dart.yml/badge.svg)](https://github.com/gustavomurad/random_password_generator/actions/workflows/dart.yml)
 
-![](assets/screenshots/app.mp4)
+![](assets/screenshots/app.png)
 
