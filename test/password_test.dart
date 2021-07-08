@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:random_password_generator/password.dart';
+import 'package:random_password_generator/core/util/password.dart';
 
 void main() {
   group('Test of password length', () {
@@ -104,6 +104,19 @@ void main() {
 
       expect(password.length, 20);
       expect(regex.hasMatch(password), true);
+    });
+    test('Throws a ArgumentError if none of the character typed are selected',
+        () {
+      expect(
+          () => Password.generate(
+                length: 20,
+                includeLowercaseLetters: false,
+                includeUppercaseLetters: false,
+                includeNumbers: false,
+                includeSpecialCharacters: false,
+                includeLatin1Characters: false,
+              ),
+          throwsA(isA<ArgumentError>()));
     });
   });
 }

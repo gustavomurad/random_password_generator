@@ -1,6 +1,6 @@
-#Random password generator
+# Random password generator
 
 [![CI](https://github.com/gustavomurad/random_password_generator/actions/workflows/dart.yml/badge.svg)](https://github.com/gustavomurad/random_password_generator/actions/workflows/dart.yml)
 
-![](assets/screenshot/app.png)
+![](assets/screenshots/app.mp4)
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -45,6 +46,15 @@ class AppTheme {
         thumbColor: primaryColor,
         activeTrackColor: primaryColor,
         inactiveTrackColor: primaryColorLight,
+      ),
+      chipTheme: ChipThemeData.fromDefaults(
+        primaryColor: primaryColor,
+        secondaryColor: primaryColorDark,
+        labelStyle: TextStyle().copyWith(
+          color: textColor,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 3,
+        ),
       ),
       switchTheme: SwitchThemeData().copyWith(
         thumbColor: MaterialStateProperty.all<Color>(primaryColor),
