@@ -3,16 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static final primaryColor = const Color(0xFFa5a58d);
-  static final primaryColorLight = const Color(0xFFd6d6bd);
-  static final primaryColorDark = const Color(0xFF767660);
+  static final primaryColor = const Color(0xFF212121);
+  static final primaryColorLight = const Color(0xFF484848);
+  static final primaryColorDark = const Color(0xFF000000);
 
-  static final secondaryColor = const Color(0xFFffe8d6);
-  static final secondaryColorLight = const Color(0xFFffffff);
-  static final secondaryColorDark = const Color(0xFFccb6a5);
+  static final secondaryColor = const Color(0xFF757575);
+  static final secondaryColorLight = const Color(0xFFa4a4a4);
+  static final secondaryColorDark = const Color(0xFF494949);
 
   static final backgroundColor = const Color(0xFFfffdf7);
-  static final textColor = const Color(0xFF000000);
+  static final textColorPrimary = const Color(0xFFffffff);
+  static final textColorSecondary = const Color(0xFFffffff);
 
   static final ThemeData getTheme = _build();
 
@@ -20,8 +21,10 @@ class AppTheme {
     final ThemeData baseTheme = ThemeData.light();
 
     return baseTheme.copyWith(
-      primaryTextTheme: GoogleFonts.robotoTextTheme(baseTheme.primaryTextTheme),
-      textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+      primaryTextTheme:
+          GoogleFonts.inconsolataTextTheme(baseTheme.primaryTextTheme),
+      textTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
+      accentTextTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
       accentColor: secondaryColor,
       accentColorBrightness: Brightness.dark,
       primaryColor: primaryColor,
@@ -30,15 +33,15 @@ class AppTheme {
       primaryColorBrightness: Brightness.dark,
       buttonTheme: baseTheme.buttonTheme.copyWith(
         buttonColor: secondaryColor,
-        textTheme: ButtonTextTheme.primary,
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
+          textStyle: TextStyle(letterSpacing: 2),
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          primary: textColor,
+          primary: textColorPrimary,
           backgroundColor: primaryColor,
         ),
       ),
@@ -51,7 +54,7 @@ class AppTheme {
         primaryColor: primaryColor,
         secondaryColor: primaryColorDark,
         labelStyle: TextStyle().copyWith(
-          color: textColor,
+          color: textColorPrimary,
           fontWeight: FontWeight.bold,
           letterSpacing: 3,
         ),
