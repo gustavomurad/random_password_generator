@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'colors.dart';
 
 class AppTheme {
-  static final primaryColor = const Color(0xFF212121);
-  static final primaryColorLight = const Color(0xFF484848);
-  static final primaryColorDark = const Color(0xFF000000);
-
-  static final secondaryColor = const Color(0xFF757575);
-  static final secondaryColorLight = const Color(0xFFa4a4a4);
-  static final secondaryColorDark = const Color(0xFF494949);
-
-  static final backgroundColor = const Color(0xFFfffdf7);
-  static final textColorPrimary = const Color(0xFFffffff);
-  static final textColorSecondary = const Color(0xFFffffff);
-
   static final ThemeData getTheme = _build();
 
   static ThemeData _build() {
@@ -59,6 +48,15 @@ class AppTheme {
           letterSpacing: 3,
         ),
       ),
+      toggleButtonsTheme: ToggleButtonsThemeData(
+          fillColor: primaryColor,
+          selectedColor: textColorPrimary,
+          borderWidth: 2,
+          textStyle: TextStyle().copyWith(
+            color: textColorPrimary,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 3,
+          )),
       switchTheme: SwitchThemeData().copyWith(
         thumbColor: MaterialStateProperty.all<Color>(primaryColor),
         trackColor: MaterialStateProperty.all<Color>(primaryColorDark),

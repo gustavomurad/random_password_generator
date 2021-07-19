@@ -6,6 +6,7 @@ import 'package:random_password_generator/features/presentation/bloc/password_bl
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
 import 'package:random_password_generator/features/presentation/widgets/character_choice_chip.dart';
+import 'package:random_password_generator/features/presentation/widgets/character_choice_toggle_button.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -18,11 +19,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int length = 20;
-  bool lowercaseLetters = true;
-  bool uppercaseLetters = true;
-  bool numbers = true;
-  bool specialCharacters = true;
-  bool latin1Characters = true;
+
+  // bool lowercaseLetters = true;
+  // bool uppercaseLetters = true;
+  // bool numbers = true;
+  // bool specialCharacters = true;
+  // bool latin1Characters = true;
+
+  List<bool> toggleButtonSelectionItems = [true, true, true, true, true];
+  List<String> toggleButtonsLabels = ['abc', 'ABC', '123', '!@%', 'Âæß'];
 
   @override
   void initState() {
@@ -35,11 +40,11 @@ class _HomePageState extends State<HomePage> {
       GenerateNewPassword(
         passwordModel: PasswordModel(
           length: this.length,
-          lowercaseLetters: this.lowercaseLetters,
-          uppercaseLetters: this.uppercaseLetters,
-          numbers: this.numbers,
-          specialCharacters: this.specialCharacters,
-          latin1Characters: this.latin1Characters,
+          lowercaseLetters: this.toggleButtonSelectionItems[0],
+          uppercaseLetters: this.toggleButtonSelectionItems[1],
+          numbers: this.toggleButtonSelectionItems[2],
+          specialCharacters: this.toggleButtonSelectionItems[3],
+          latin1Characters: this.toggleButtonSelectionItems[4],
         ),
       ),
     );
@@ -50,7 +55,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Random Password Generator'),
-
       ),
       body: BlocConsumer<PasswordBloc, PasswordState>(
         listener: (context, state) {
@@ -69,11 +73,11 @@ class _HomePageState extends State<HomePage> {
             );
 
             setState(() {
-              this.lowercaseLetters = true;
-              this.uppercaseLetters = true;
-              this.numbers = true;
-              this.specialCharacters = true;
-              this.latin1Characters = true;
+              // this.lowercaseLetters = true;
+              // this.uppercaseLetters = true;
+              // this.numbers = true;
+              // this.specialCharacters = true;
+              // this.latin1Characters = true;
             });
 
             generateNewPassword();
@@ -167,51 +171,61 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            CharacterChoiceChip(
-                              label: 'abc',
-                              selectedChip: this.lowercaseLetters,
-                              onSelected: (value) => setState(() {
-                                this.lowercaseLetters = value;
-                                generateNewPassword();
-                              }),
-                            ),
-                            CharacterChoiceChip(
-                              label: 'ABC',
-                              selectedChip: this.uppercaseLetters,
-                              onSelected: (value) => setState(() {
-                                this.uppercaseLetters = value;
-                                generateNewPassword();
-                              }),
-                            ),
-                            CharacterChoiceChip(
-                              label: '123',
-                              selectedChip: this.numbers,
-                              onSelected: (value) => setState(() {
-                                this.numbers = value;
-                                generateNewPassword();
-                              }),
-                            ),
-                            CharacterChoiceChip(
-                              label: '!@%',
-                              selectedChip: this.specialCharacters,
-                              onSelected: (value) => setState(() {
-                                this.specialCharacters = value;
-                                generateNewPassword();
-                              }),
-                            ),
-                            CharacterChoiceChip(
-                              label: 'Âæß',
-                              selectedChip: this.latin1Characters,
-                              onSelected: (value) => setState(() {
-                                this.latin1Characters = value;
-                                generateNewPassword();
-                              }),
-                            ),
-                          ],
+
+                        CharacterChoiceToggleButton(
+                          onPressed: (index) => setState(() {
+                            this.toggleButtonSelectionItems[index] =
+                                !this.toggleButtonSelectionItems[index];
+                            generateNewPassword();
+                          }),
+                          isSelected: this.toggleButtonSelectionItems,
+                          children: this.toggleButtonsLabels,
                         ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: [
+                        //     CharacterChoiceChip(
+                        //       label: 'abc',
+                        //       selectedChip: this.lowercaseLetters,
+                        //       onSelected: (value) => setState(() {
+                        //         this.lowercaseLetters = value;
+                        //         generateNewPassword();
+                        //       }),
+                        //     ),
+                        //     CharacterChoiceChip(
+                        //       label: 'ABC',
+                        //       selectedChip: this.uppercaseLetters,
+                        //       onSelected: (value) => setState(() {
+                        //         this.uppercaseLetters = value;
+                        //         generateNewPassword();
+                        //       }),
+                        //     ),
+                        //     CharacterChoiceChip(
+                        //       label: '123',
+                        //       selectedChip: this.numbers,
+                        //       onSelected: (value) => setState(() {
+                        //         this.numbers = value;
+                        //         generateNewPassword();
+                        //       }),
+                        //     ),
+                        //     CharacterChoiceChip(
+                        //       label: '!@%',
+                        //       selectedChip: this.specialCharacters,
+                        //       onSelected: (value) => setState(() {
+                        //         this.specialCharacters = value;
+                        //         generateNewPassword();
+                        //       }),
+                        //     ),
+                        //     CharacterChoiceChip(
+                        //       label: 'Âæß',
+                        //       selectedChip: this.latin1Characters,
+                        //       onSelected: (value) => setState(() {
+                        //         this.latin1Characters = value;
+                        //         generateNewPassword();
+                        //       }),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
