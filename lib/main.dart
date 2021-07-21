@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:random_password_generator/core/styles/theme.dart';
+import 'package:random_password_generator/core/styles/theme_dark.dart';
+import 'package:random_password_generator/core/styles/theme_light.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_bloc.dart';
 import 'package:random_password_generator/features/presentation/pages/home_page.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Random Password Generator',
-      theme: AppTheme.getTheme,
+      theme: AppThemeLight.get(),
+      darkTheme: AppThemeDark.get(),
       debugShowCheckedModeBanner: false,
       home: BlocProvider<PasswordBloc>(
         create: (context) => PasswordBloc(),

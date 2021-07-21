@@ -3,10 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
-class AppTheme {
-  static final ThemeData getTheme = _build();
-
-  static ThemeData _build() {
+abstract class AppThemeLight {
+  static ThemeData get() {
     final ThemeData baseTheme = ThemeData.light();
 
     return baseTheme.copyWith(
@@ -15,11 +13,10 @@ class AppTheme {
       textTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
       accentTextTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
       accentColor: secondaryColor,
-      accentColorBrightness: Brightness.dark,
+      accentColorBrightness: Brightness.light,
       primaryColor: primaryColor,
-      primaryColorDark: primaryColorDark,
       primaryColorLight: primaryColorLight,
-      primaryColorBrightness: Brightness.dark,
+      primaryColorBrightness: Brightness.light,
       buttonTheme: baseTheme.buttonTheme.copyWith(
         buttonColor: secondaryColor,
       ),
@@ -40,8 +37,8 @@ class AppTheme {
         inactiveTrackColor: primaryColorLight,
       ),
       chipTheme: ChipThemeData.fromDefaults(
-        primaryColor: primaryColor,
-        secondaryColor: primaryColorDark,
+        primaryColor: primaryColorLight,
+        secondaryColor: secondaryColorLight,
         labelStyle: TextStyle().copyWith(
           color: textColorPrimary,
           fontWeight: FontWeight.bold,
@@ -49,18 +46,14 @@ class AppTheme {
         ),
       ),
       toggleButtonsTheme: ToggleButtonsThemeData(
-          fillColor: primaryColor,
-          selectedColor: textColorPrimary,
-          borderWidth: 2,
-          textStyle: TextStyle().copyWith(
-            color: textColorPrimary,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 3,
-          )),
-      switchTheme: SwitchThemeData().copyWith(
-        thumbColor: MaterialStateProperty.all<Color>(primaryColor),
-        trackColor: MaterialStateProperty.all<Color>(primaryColorDark),
-        overlayColor: MaterialStateProperty.all<Color>(primaryColorLight),
+        fillColor: primaryColor,
+        selectedColor: textColorPrimary,
+        borderWidth: 2,
+        textStyle: TextStyle().copyWith(
+          color: textColorPrimary,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 3,
+        ),
       ),
       scaffoldBackgroundColor: backgroundColor,
       cardColor: backgroundColor,
