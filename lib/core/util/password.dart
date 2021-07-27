@@ -186,8 +186,9 @@ class Password {
     'ÿ'
   ];
 
-  static String generate({
+  static List<String> generate({
     int length = 20,
+    int quantity = 30,
     bool includeLowercaseLetters = true,
     bool includeUppercaseLetters = true,
     bool includeNumbers = true,
@@ -195,6 +196,7 @@ class Password {
     bool includeLatin1Characters = true,
   }) {
     List<String> chars = [];
+
     if (includeLowercaseLetters) chars.addAll(lowercaseLetters);
     if (includeUppercaseLetters) chars.addAll(uppercaseLetters);
     if (includeNumbers) chars.addAll(numbers);
@@ -206,6 +208,21 @@ class Password {
         'You must select at least one type of character!',
       );
 
+    final passwords = List.generate(
+      quantity,
+      (index) => _generatePassword(
+        length: length,
+        chars: chars,
+      ),
+    );
+
+    return passwords;
+  }
+
+  static String _generatePassword({
+    required int length,
+    required List<String> chars,
+  }) {
     return List.generate(
       length,
       (index) => chars.elementAt(

@@ -21,7 +21,7 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
         );
       } catch (e) {
         yield PasswordState(
-            password: '',
+            password: [],
             pageState: PageState.error,
             errorMessage: (e is ArgumentError)
                 ? e.message

@@ -8,7 +8,7 @@ class GeneratePasswordUseCase {
     required PasswordService service,
   }) : this._service = service;
 
-  Future<String> call({required PasswordModel passwordModel}) {
+  Future<List<String>> call({required PasswordModel passwordModel}) {
     return _service.generatePassword(passwordModel: passwordModel);
   }
 }

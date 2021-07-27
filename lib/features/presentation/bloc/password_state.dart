@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 enum PageState { ready, success, error }
 
 class PasswordState extends Equatable {
-  final String password;
+  final List<String> password;
   final PageState pageState;
   final String? errorMessage;
 
@@ -14,7 +14,7 @@ class PasswordState extends Equatable {
   });
 
   factory PasswordState.initial() => PasswordState(
-        password: '',
+        password: [],
         pageState: PageState.ready,
       );
 

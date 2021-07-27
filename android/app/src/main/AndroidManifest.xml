@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.gustavomurad.random_password_generator">
+    package="dev.gustavomurad.random_password_generator">
    <application
         android:label="Random Password Generator"
         android:icon="@mipmap/launcher_icon">

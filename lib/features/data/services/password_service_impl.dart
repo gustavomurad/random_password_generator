@@ -4,7 +4,7 @@ import 'package:random_password_generator/features/domain/models/password_model.
 
 class PasswordServiceImpl implements PasswordService {
   @override
-  Future<String> generatePassword({
+  Future<List<String>> generatePassword({
     required PasswordModel passwordModel,
   }) async {
     return Password.generate(

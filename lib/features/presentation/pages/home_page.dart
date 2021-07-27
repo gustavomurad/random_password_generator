@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,10 @@ import 'package:random_password_generator/features/presentation/bloc/password_bl
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
 import 'package:random_password_generator/features/presentation/widgets/character_choice_toggle_button.dart';
+import 'package:random_password_generator/features/presentation/widgets/info_banner.dart';
+import 'package:random_password_generator/features/presentation/widgets/password_legth_slider.dart';
+import 'package:random_password_generator/features/presentation/widgets/password_list.dart';
+import 'package:random_password_generator/features/presentation/widgets/rounded_button.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -46,9 +51,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Random Password Generator'),
-      ),
       body: BlocConsumer<PasswordBloc, PasswordState>(
         listener: (context, state) {
           if (state.pageState == PageState.error) {
@@ -61,148 +63,84 @@ class _HomePageState extends State<HomePage> {
           return Center(
             child: Column(
               children: [
-                Visibility(
-                  visible: this.showBanner,
-                  child: MaterialBanner(
-                    padding: EdgeInsets.all(20),
-                    content: Text(
-                      state.errorMessage ?? '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    leading: Icon(Icons.error),
-                    backgroundColor: Color(0xFFE0E0E0),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('DISMISS'),
-                        onPressed: () => setState(() {
-                          this.showBanner = false;
-                        }),
-                      ),
-                    ],
-                  ),
+                InfoBanner(
+                  showBanner: this.showBanner,
+                  message: state.errorMessage ?? '',
+                  onPressed: () => setState(() {
+                    this.showBanner = false;
+                  }),
                 ),
                 Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Center(
-                              child: SelectableText(
-                                '${state.password}',
-                                style: Theme.of(context).textTheme.headline4,
-                                textAlign: TextAlign.center,
+                  child: Column(
+                    children: <Widget>[
+                      Visibility(
+                        visible: !this.showBanner,
+                        child: Expanded(
+                          flex: 2,
+                          child: PasswordList(
+                            items: state.password,
+                            onSelect: (value) => _copyPassword(password: value),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    flex: 5,
+                                    child: RoundedButton(
+                                      onPressed: () => generateNewPassword(),
+                                      label: 'REFRESH',
+                                      icon: Icons.refresh,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Flexible(
+                                    flex: 5,
+                                    child: RoundedButton(
+                                      onPressed: () => _copyAllPasswords(
+                                        passwords: state.password,
+                                      ),
+                                      icon: Icons.copy,
+                                      label: 'COPY',
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              PasswordLengthSlider(
+                                length: this.length,
+                                onChanged: (value) => setState(
+                                  () => this.length = value.toInt(),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              CharacterChoiceToggleButton(
+                                onPressed: (index) => setState(() {
+                                  this.toggleButtonSelectionItems[index] =
+                                      !this.toggleButtonSelectionItems[index];
+                                  generateNewPassword();
+                                }),
+                                isSelected: this.toggleButtonSelectionItems,
+                                children: this.toggleButtonsLabels,
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      flex: 5,
-                                      child: TextButton(
-                                        onPressed: () => setState(
-                                            () => generateNewPassword()),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.refresh),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text('REFRESH')
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Flexible(
-                                      flex: 5,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Clipboard.setData(
-                                            ClipboardData(text: state.password),
-                                          );
-
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              duration: Duration(seconds: 1),
-                                              content: Text(
-                                                'Password copied to clipboard!',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  letterSpacing: 1,
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.copy),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text('COPY')
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  'Password length: ${this.length}',
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                                Slider(
-                                  value: this.length.toDouble(),
-                                  min: 1,
-                                  max: 100,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      this.length = value.toInt();
-                                      generateNewPassword();
-                                    });
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                CharacterChoiceToggleButton(
-                                  onPressed: (index) => setState(() {
-                                    this.toggleButtonSelectionItems[index] =
-                                        !this.toggleButtonSelectionItems[index];
-                                    generateNewPassword();
-                                  }),
-                                  isSelected: this.toggleButtonSelectionItems,
-                                  children: this.toggleButtonsLabels,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -211,5 +149,36 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  void _copyAllPasswords({required List<String> passwords}) {
+    Clipboard.setData(
+      ClipboardData(text: passwords.join(' ; ')),
+    );
+
+    _showSnackBar(message: 'All password\'s copied to clipboard!');
+  }
+
+  void _showSnackBar({required String message}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 1),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _copyPassword({required String password}) {
+    Clipboard.setData(
+      ClipboardData(text: password),
+    );
+
+    _showSnackBar(message: 'Password copied to clipboard!');
   }
 }

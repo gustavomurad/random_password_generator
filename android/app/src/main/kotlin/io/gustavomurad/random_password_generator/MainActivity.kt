@@ -1,4 +1,4 @@
-package io.gustavomurad.random_password_generator
+package dev.gustavomurad.random_password_generator
 
 import io.flutter.embedding.android.FlutterActivity
 
