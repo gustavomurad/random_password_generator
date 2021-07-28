@@ -38,7 +38,7 @@ class NumberPicker extends StatelessWidget {
                   onPressed: this.value == this.minValue
                       ? () => this.onChanged(this.maxValue)
                       : () => this.onChanged(this.value - 1),
-                  child: const Icon(Icons.arrow_back),
+                  child: const Icon(Icons.remove),
                   style: TextButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(10),
@@ -58,7 +58,7 @@ class NumberPicker extends StatelessWidget {
                   onPressed: this.value == this.maxValue
                       ? () => this.onChanged(this.minValue)
                       : () => this.onChanged(this.value + 1),
-                  child: const Icon(Icons.arrow_forward),
+                  child: const Icon(Icons.add),
                   style: TextButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(10),
