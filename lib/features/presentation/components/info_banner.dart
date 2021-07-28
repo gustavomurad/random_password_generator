@@ -17,7 +17,7 @@ class InfoBanner extends StatelessWidget {
     return Visibility(
       visible: this.showBanner,
       child: MaterialBanner(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         content: Text(
           this.message,
           style: TextStyle(
@@ -26,10 +26,10 @@ class InfoBanner extends StatelessWidget {
           ),
         ),
         leading: Icon(Icons.error),
-        backgroundColor: Color(0xFFE0E0E0),
+        backgroundColor: const Color(0xFFE0E0E0),
         actions: <Widget>[
           TextButton(
-            child: Text('DISMISS'),
+            child: const Text('DISMISS'),
             onPressed: this.onPressed,
           ),
         ],

@@ -25,7 +25,7 @@ abstract class AppThemeLight {
           textStyle: TextStyle(letterSpacing: 2),
           elevation: 5,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(50),
           ),
           primary: textColorPrimary,
           backgroundColor: primaryColor,
