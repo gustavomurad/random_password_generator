@@ -6,11 +6,12 @@ import 'package:random_password_generator/features/domain/models/password_model.
 import 'package:random_password_generator/features/presentation/bloc/password_bloc.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
-import 'package:random_password_generator/features/presentation/widgets/character_choice_toggle_button.dart';
-import 'package:random_password_generator/features/presentation/widgets/info_banner.dart';
-import 'package:random_password_generator/features/presentation/widgets/password_legth_slider.dart';
-import 'package:random_password_generator/features/presentation/widgets/password_list.dart';
-import 'package:random_password_generator/features/presentation/widgets/rounded_button.dart';
+import 'package:random_password_generator/features/presentation/components/character_choice_toggle_button.dart';
+import 'package:random_password_generator/features/presentation/components/info_banner.dart';
+import 'package:random_password_generator/features/presentation/components/password_legth_picker.dart';
+import 'package:random_password_generator/features/presentation/components/password_list.dart';
+import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
+import 'package:random_password_generator/features/presentation/components/rounded_button.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -23,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int length = 20;
+  int quantity = 1;
   bool showBanner = false;
   List<bool> toggleButtonSelectionItems = [true, true, true, true, true];
   final List<String> toggleButtonsLabels = ['abc', 'ABC', '123', '!@%', 'Âæß'];
@@ -38,6 +40,7 @@ class _HomePageState extends State<HomePage> {
       GenerateNewPassword(
         passwordModel: PasswordModel(
           length: this.length,
+          quantity: this.quantity,
           lowercaseLetters: this.toggleButtonSelectionItems[0],
           uppercaseLetters: this.toggleButtonSelectionItems[1],
           numbers: this.toggleButtonSelectionItems[2],
@@ -110,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                                         passwords: state.password,
                                       ),
                                       icon: Icons.copy,
-                                      label: 'COPY',
+                                      label: 'COPY ALL',
                                     ),
                                   ),
                                 ],
@@ -118,11 +121,26 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              PasswordLengthSlider(
-                                length: this.length,
-                                onChanged: (value) => setState(
-                                  () => this.length = value.toInt(),
-                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: PasswordQuantityPicker(
+                                      quantity: this.quantity,
+                                      onChanged: (quantity) => setState(() {
+                                        this.quantity = quantity;
+                                      }),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Expanded(
+                                    child: PasswordLengthPicker(
+                                      length: this.length,
+                                      onChanged: (length) => setState(
+                                        () => this.length = length,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 20,

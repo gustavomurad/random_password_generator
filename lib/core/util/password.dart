@@ -188,7 +188,7 @@ class Password {
 
   static List<String> generate({
     int length = 20,
-    int quantity = 30,
+    int quantity = 1,
     bool includeLowercaseLetters = true,
     bool includeUppercaseLetters = true,
     bool includeNumbers = true,

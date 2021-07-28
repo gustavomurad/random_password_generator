@@ -1,5 +1,6 @@
 class PasswordModel {
   final int length;
+  final int quantity;
   final bool lowercaseLetters;
   final bool uppercaseLetters;
   final bool numbers;
@@ -8,6 +9,7 @@ class PasswordModel {
 
   PasswordModel({
     required this.length,
+    required this.quantity,
     required this.lowercaseLetters,
     required this.uppercaseLetters,
     required this.numbers,

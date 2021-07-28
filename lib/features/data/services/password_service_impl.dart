@@ -9,6 +9,7 @@ class PasswordServiceImpl implements PasswordService {
   }) async {
     return Password.generate(
       length: passwordModel.length,
+      quantity: passwordModel.quantity,
       includeLowercaseLetters: passwordModel.lowercaseLetters,
       includeUppercaseLetters: passwordModel.uppercaseLetters,
       includeNumbers: passwordModel.numbers,

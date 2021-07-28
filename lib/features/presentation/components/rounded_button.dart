@@ -20,7 +20,7 @@ class RoundedButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(this.icon),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(this.label)
