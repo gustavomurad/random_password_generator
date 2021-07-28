@@ -1,63 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'colors.dart';
+import 'package:random_password_generator/core/styles/colors_theme_dark.dart';
+import 'package:random_password_generator/core/styles/text_theme_dark.dart';
 
 abstract class AppThemeDark {
   static ThemeData get() {
-    final ThemeData baseTheme = ThemeData.light();
+    final ThemeData baseTheme = ThemeData(
+      colorScheme: ColorScheme.dark(
+        primary: ColorsThemeDark.primaryColor,
+        primaryVariant: ColorsThemeDark.primaryDarkColor,
+        secondary: ColorsThemeDark.secondaryColor,
+        secondaryVariant: ColorsThemeDark.secondaryDarkColor,
+      ),
+    );
 
     return baseTheme.copyWith(
-      primaryTextTheme:
-          GoogleFonts.inconsolataTextTheme(baseTheme.primaryTextTheme),
-      textTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
-      accentTextTheme: GoogleFonts.inconsolataTextTheme(baseTheme.textTheme),
-      accentColor: secondaryColorDark,
-      accentColorBrightness: Brightness.dark,
-      primaryColor: primaryColor,
-      primaryColorDark: primaryColorDark,
-      primaryColorBrightness: Brightness.dark,
-      buttonTheme: baseTheme.buttonTheme.copyWith(
-        buttonColor: secondaryColorDark,
-      ),
+      primaryTextTheme: TextThemeDark.get(baseTheme: baseTheme),
+      textTheme: TextThemeDark.get(baseTheme: baseTheme),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           textStyle: TextStyle(letterSpacing: 2),
-          elevation: 5,
+          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
-          primary: textColorPrimary,
-          backgroundColor: primaryColorDark,
+          primary: ColorsThemeDark.primaryTextColor,
         ),
       ),
-      sliderTheme: SliderThemeData(
-        thumbColor: primaryColorDark,
-        activeTrackColor: primaryColorDark,
-        inactiveTrackColor: secondaryColorDark,
-      ),
-      chipTheme: ChipThemeData.fromDefaults(
-        primaryColor: primaryColorDark,
-        secondaryColor: secondaryColorDark,
-        labelStyle: TextStyle().copyWith(
-          color: textColorPrimary,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 3,
-        ),
-      ),
+      appBarTheme: AppBarTheme(color: ColorsThemeDark.primaryColor),
       toggleButtonsTheme: ToggleButtonsThemeData(
-        fillColor: primaryColorDark,
-        selectedColor: textColorPrimary,
+        fillColor: ColorsThemeDark.primaryColor,
+        color: ColorsThemeDark.secondaryColor,
+        selectedColor: ColorsThemeDark.primaryTextColor,
         borderWidth: 2,
+        borderColor: ColorsThemeDark.secondaryLightColor,
+        selectedBorderColor: ColorsThemeDark.secondaryTextColor,
         textStyle: TextStyle().copyWith(
-          color: textColorPrimary,
           fontWeight: FontWeight.bold,
           letterSpacing: 3,
         ),
       ),
-      scaffoldBackgroundColor: backgroundColor,
-      cardColor: backgroundColor,
-      backgroundColor: backgroundColor,
     );
   }
 }

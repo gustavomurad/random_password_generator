@@ -131,7 +131,9 @@ class _HomePageState extends State<HomePage> {
                                       }),
                                     ),
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   Expanded(
                                     child: PasswordLengthPicker(
                                       length: this.length,
