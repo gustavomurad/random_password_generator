@@ -22,6 +22,7 @@
 
 # Google Play Console upload keystore
 /app-upload-keystore
+/android/key.properties
 
 # Flutter/Dart/Pub related
 **/doc/api/
