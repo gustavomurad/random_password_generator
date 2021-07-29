@@ -1,7 +1,7 @@
 name: Flutter release (Internal)
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   release:
@@ -48,7 +48,7 @@ jobs:
         id: ndk-cache
         uses: actions/cache@v2
         with:
-          path: /usr/local/lib/android/sdk/ndk/21.0.6113669
+          path: /usr/local/lib/android/sdk/ndk/22.1.7171670
           key: ndk-cache-22.1.7171670-v2
 
       - name: Install NDK
@@ -57,9 +57,6 @@ jobs:
 
       - name: Download pub dependencies
         run: flutter pub get
-
-      - name: Run build_runner
-        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Run analyzer
         run: flutter analyze
