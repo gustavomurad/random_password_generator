@@ -1,4 +1,4 @@
-name: Flutter release (Beta)
+name: Flutter release (Internal)
 on:
   push:
     branches: [ main ]
@@ -17,23 +17,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 12.x
-
-      - name: Prepare NDK dir for caching ( workaround for https://github.com/actions/virtual-environments/issues/1337 )
-        run: |
-          sudo mkdir -p /usr/local/lib/android/sdk/ndk-bundle
-          sudo chmod -R 777 /usr/local/lib/android/sdk/ndk-bundle
-          sudo chown -R $USER:$USER /usr/local/lib/android/sdk/ndk-bundle
-
-      - name: NDK Cache
-        id: ndk-cache
-        uses: actions/cache@v2
-        with:
-          path: /usr/local/lib/android/sdk/ndk-bundle
-          key: ndk-cache-21.4.7075529-v2
-          
-      - name: Install NDK
-        if: steps.ndk-cache.outputs.cache-hit != 'true'
-        run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.4.7075529"
 
 #      - name: Install NDK
 #        uses: nttld/setup-ndk@v1
@@ -54,6 +37,24 @@ jobs:
           path: '${{ env.FLUTTER_HOME }}/.pub-cache'
           key: '${{ runner.os }}-pub-${{ hashFiles(''**/pubspec.lock'') }}'
           restore-keys: '${{ runner.os }}-pub-'
+
+      - name: Prepare NDK dir for caching ( workaround for https://github.com/actions/virtual-environments/issues/1337 )
+        run: |
+          sudo mkdir -p /usr/local/lib/android/sdk/ndk/21.4.7075529
+          sudo chmod -R 777 /usr/local/lib/android/sdk/ndk/21.4.7075529
+          sudo chown -R $USER:$USER /usr/local/lib/android/sdk/ndk/21.4.7075529
+
+      - name: NDK Cache
+        id: ndk-cache
+        uses: actions/cache@v2
+        with:
+          path: /usr/local/lib/android/sdk/ndk/21.4.7075529
+          key: ndk-cache-21.4.7075529-v2
+
+      - name: Install NDK
+        if: steps.ndk-cache.outputs.cache-hit != 'true'
+        run: echo "y" | /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.4.7075529" --sdk_root=${ANDROID_HOME} > /dev/null
+             export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21.4.7075529
 
       - name: Download pub dependencies
         run: flutter pub get
@@ -109,6 +110,8 @@ jobs:
           bundle config path vendor/bundle
           bundle install
 
+      # The default available tracks are: production, beta, alpha, internal
+      # https://docs.fastlane.tools/actions/supply/
       - name: Release to Google Play (beta)
         env:
           SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
@@ -116,4 +119,4 @@ jobs:
         run: |
           bundle exec fastlane supply \
           --aab build/app/outputs/bundle/release/app-release.aab \
-          --track beta
+          --track internal
