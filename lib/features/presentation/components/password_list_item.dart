@@ -13,30 +13,16 @@ class PasswordListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextButton(
-              onPressed: onTap,
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.headline4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: Text(
-                  this.password,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                ),
-              ),
-            ),
-          ),
-        ],
+    return GestureDetector(
+      onTap: this.onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        child: Text(
+          this.password,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline4,
+          softWrap: true,
+        ),
       ),
     );
   }

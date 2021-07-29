@@ -23,6 +23,14 @@ class PasswordList extends StatelessWidget {
             (context, index) {
               final item = this.items.elementAt(index);
               return Container(
+                // decoration: BoxDecoration(
+                //   border: Border(
+                //     bottom: BorderSide(
+                //       width: 5.0,
+                //       style: BorderStyle.solid,
+                //     ),
+                //   ),
+                // ),
                 child: PasswordListItem(
                   password: item,
                   onTap: () => this.onSelect(item),
