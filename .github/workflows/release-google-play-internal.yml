@@ -2,7 +2,7 @@ name: Google Play (Internal)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   google-play:
