@@ -2,16 +2,16 @@ name: Google Play (Internal)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ qa-tests ]
 
 jobs:
   google-play:
-    name: Release (full)
+    name: Release (Internal Tests)
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout sources
         uses: actions/checkout@v2
 
       - name: Setup Flutter
@@ -32,7 +32,8 @@ jobs:
       - name: Download pub dependencies
         run: flutter pub get
 
-      - name: Prepare NDK dir for caching ( workaround for https://github.com/actions/virtual-environments/issues/1337 )
+      # Workaround for https://github.com/actions/virtual-environments/issues/1337
+      - name: Prepare NDK dir for caching
         run: |
           sudo mkdir -p /usr/local/lib/android/sdk/ndk/22.1.7171670
           sudo chmod -R 777 /usr/local/lib/android/sdk/ndk/22.1.7171670
@@ -66,24 +67,24 @@ jobs:
       - name: Build Android App Bundle
         run: flutter build appbundle #--flavor full
 
-      - name: Cache bundle dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: ${{ runner.os }}-gems-
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-
-      - name: Download bundle dependencies
-        run: |
-          gem install bundler:2.0.2
-          bundle config path vendor/bundle
-          bundle install
-
+#      - name: Cache bundle dependencies
+#        uses: actions/cache@v2
+#        with:
+#          path: vendor/bundle
+#          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+#          restore-keys: ${{ runner.os }}-gems-
+#
+#      - name: Setup Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: 2.6
+#
+#      - name: Download bundle dependencies
+#        run: |
+#          gem install bundler:2.0.2
+#          bundle config path vendor/bundle
+#          bundle install
+#
 #      - name: Release to Google Play (production)
 #        env:
 #          SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
