@@ -1,16 +1,16 @@
-name: Flutter release
+name: Flutter release (Beta)
 on:
   push:
     branches: [ main ]
 
 jobs:
   release:
-    name: Test, build and release
+    name: Test, build and release App Bundle
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v1
 
       - name: Setup Java
@@ -18,10 +18,22 @@ jobs:
         with:
           java-version: 12.x
 
-      - name: Setup NDK
-        uses: nttld/setup-ndk@v1
+      - name: Prepare NDK dir for caching ( workaround for https://github.com/actions/virtual-environments/issues/1337 )
+        run: |
+          sudo mkdir -p /usr/local/lib/android/sdk/ndk
+          sudo chmod -R 777 /usr/local/lib/android/sdk/ndk
+          sudo chown -R $USER:$USER /usr/local/lib/android/sdk/ndk
+
+      - name: NDK Cache
+        id: ndk-cache
+        uses: actions/cache@v2
         with:
-          ndk-version: r21e
+          path: /usr/local/lib/android/sdk/ndk
+          key: ndk-cache-21.0.6113669-v2
+          
+      - name: Install NDK
+        if: steps.ndk-cache.outputs.cache-hit != 'true'
+        run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.0.6113669"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
@@ -50,14 +62,14 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      - name: Download Android keystore
+      - name: Create Android keystore
         id: android_keystore
         uses: timheuer/base64-to-file@v1.0.3
         with:
           fileName: key.jks
           encodedString: '${{ secrets.ANDROID_KEYSTORE_BASE64 }}'
 
-      - name: Create key.properties
+      - name: Create key.properties file
         run: >
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" >
           android/key.properties
