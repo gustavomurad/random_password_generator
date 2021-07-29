@@ -64,7 +64,7 @@ jobs:
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
 
       - name: Build Android App Bundle
-        run: flutter build appbundle --flavor full
+        run: flutter build appbundle #--flavor full
 
       - name: Cache bundle dependencies
         uses: actions/cache@v2
