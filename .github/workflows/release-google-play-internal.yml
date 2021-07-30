@@ -1,8 +1,9 @@
 name: Google Play (Internal)
 
 on:
-  push:
-    branches: [ qa-tests ]
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   google-play:
