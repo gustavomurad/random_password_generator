@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_password_generator/core/styles/colors_theme_dark.dart';
+import 'package:random_password_generator/core/styles/colors_theme_light.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_bloc.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
@@ -51,122 +53,138 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Color _getThemeColor() {
+    final bool isDarkModeOn =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    return isDarkModeOn
+        ? ColorsThemeDark.primaryColor
+        : ColorsThemeLight.primaryLightColor;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<PasswordBloc, PasswordState>(
-        listener: (context, state) {
-          if (state.pageState == PageState.error) {
-            setState(() {
-              this.showBanner = true;
-            });
-          }
-        },
-        builder: (context, state) {
-          return Center(
-            child: Column(
-              children: [
-                InfoBanner(
-                  showBanner: this.showBanner,
-                  message: state.errorMessage ?? '',
-                  onPressed: () => setState(() {
-                    this.showBanner = false;
-                  }),
-                ),
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Visibility(
-                        visible: !this.showBanner,
-                        child: Expanded(
-                          flex: 2,
-                          child: PasswordList(
-                            items: state.password,
-                            onSelect: (value) => _copyPassword(password: value),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.only(bottom: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
-                                children: [
-                                  Flexible(
-                                    flex: 5,
-                                    child: RoundedButton(
-                                      onPressed: () => generateNewPassword(),
-                                      label: 'REFRESH',
-                                      icon: Icons.refresh,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Flexible(
-                                    flex: 5,
-                                    child: RoundedButton(
-                                      onPressed: () => _copyAllPasswords(
-                                        passwords: state.password,
-                                      ),
-                                      icon: Icons.copy,
-                                      label: 'COPY ALL',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: PasswordQuantityPicker(
-                                      quantity: this.quantity,
-                                      onChanged: (quantity) => setState(() {
-                                        this.quantity = quantity;
-                                      }),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: PasswordLengthPicker(
-                                      length: this.length,
-                                      onChanged: (length) => setState(
-                                        () => this.length = length,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              CharacterChoiceToggleButton(
-                                onPressed: (index) => setState(() {
-                                  this.toggleButtonSelectionItems[index] =
-                                      !this.toggleButtonSelectionItems[index];
-                                  generateNewPassword();
-                                }),
-                                isSelected: this.toggleButtonSelectionItems,
-                                children: this.toggleButtonsLabels,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: _getThemeColor(),
+        systemNavigationBarColor: _getThemeColor(),
+        systemNavigationBarDividerColor: _getThemeColor(),
+      ),
+      child: Scaffold(
+        body: BlocConsumer<PasswordBloc, PasswordState>(
+          listener: (context, state) {
+            if (state.pageState == PageState.error) {
+              setState(() {
+                this.showBanner = true;
+              });
+            }
+          },
+          builder: (context, state) {
+            return Center(
+              child: Column(
+                children: [
+                  InfoBanner(
+                    showBanner: this.showBanner,
+                    message: state.errorMessage ?? '',
+                    onPressed: () => setState(() {
+                      this.showBanner = false;
+                    }),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Visibility(
+                          visible: !this.showBanner,
+                          child: Expanded(
+                            flex: 2,
+                            child: PasswordList(
+                              items: state.password,
+                              onSelect: (value) =>
+                                  _copyPassword(password: value),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 5,
+                                      child: RoundedButton(
+                                        onPressed: () => generateNewPassword(),
+                                        label: 'REFRESH',
+                                        icon: Icons.refresh,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Flexible(
+                                      flex: 5,
+                                      child: RoundedButton(
+                                        onPressed: () => _copyAllPasswords(
+                                          passwords: state.password,
+                                        ),
+                                        icon: Icons.copy,
+                                        label: 'COPY ALL',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: PasswordQuantityPicker(
+                                        quantity: this.quantity,
+                                        onChanged: (quantity) => setState(() {
+                                          this.quantity = quantity;
+                                        }),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: PasswordLengthPicker(
+                                        length: this.length,
+                                        onChanged: (length) => setState(
+                                          () => this.length = length,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                CharacterChoiceToggleButton(
+                                  onPressed: (index) => setState(() {
+                                    this.toggleButtonSelectionItems[index] =
+                                        !this.toggleButtonSelectionItems[index];
+                                    generateNewPassword();
+                                  }),
+                                  isSelected: this.toggleButtonSelectionItems,
+                                  children: this.toggleButtonsLabels,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
