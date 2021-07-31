@@ -14,7 +14,7 @@ class PasswordListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onLongPress: this.onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Text(
