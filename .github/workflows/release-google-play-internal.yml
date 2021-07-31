@@ -77,7 +77,7 @@ jobs:
 
       - name: Release to Google Play (internal)
         uses: r0adkll/upload-google-play@v1
-        with:
+        with: 
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
           packageName: ${{ secrets.ANDROID_PACKAGE_NAME }}
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
