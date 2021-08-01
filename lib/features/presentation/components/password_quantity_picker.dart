@@ -14,7 +14,7 @@ class PasswordQuantityPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NumberPicker(
-      label: 'Quantity',
+      label: 'Passwords',
       minValue: 1,
       maxValue: 100,
       value: this.quantity,
