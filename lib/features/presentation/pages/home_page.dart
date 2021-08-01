@@ -196,12 +196,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  void _copyPassword({required String password}) {
-    Clipboard.setData(
-      ClipboardData(text: password),
-    );
-
-    _showSnackBar(message: 'Password copied to clipboard!');
-  }
 }
