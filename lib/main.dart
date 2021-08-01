@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Random Password Generator',
-      theme: AppThemeLight.get(),
-      darkTheme: AppThemeDark.get(),
+      theme: AppThemeLight.themeData,
+      darkTheme: AppThemeDark.themeData,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: BlocProvider<PasswordBloc>(
