@@ -34,14 +34,18 @@ class NumberPicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: TextButton(
-                  onPressed: this.value == this.minValue
-                      ? () => this.onChanged(this.maxValue)
-                      : () => this.onChanged(this.value - 1),
-                  child: const Icon(Icons.remove),
-                  style: TextButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(10),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColorLight,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: this.value == this.minValue
+                        ? () => this.onChanged(this.maxValue)
+                        : () => this.onChanged(this.value - 1),
                   ),
                 ),
               ),
@@ -54,14 +58,18 @@ class NumberPicker extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: TextButton(
-                  onPressed: this.value == this.maxValue
-                      ? () => this.onChanged(this.minValue)
-                      : () => this.onChanged(this.value + 1),
-                  child: const Icon(Icons.add),
-                  style: TextButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(10),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColorLight,
+                  ),
+                  child: IconButton(
+                    onPressed: this.value == this.maxValue
+                        ? () => this.onChanged(this.minValue)
+                        : () => this.onChanged(this.value + 1),
+                    icon: const Icon(Icons.add),
                   ),
                 ),
               ),

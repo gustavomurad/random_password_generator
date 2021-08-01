@@ -4,13 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:random_password_generator/core/styles/colors_theme_dark.dart';
 
 abstract class AppThemeDark {
-  static final ThemeData themeData = ThemeData(
-    colorScheme: ColorScheme.dark(
-      primary: ColorsThemeDark.primaryColor,
-      primaryVariant: ColorsThemeDark.primaryDarkColor,
-      secondary: ColorsThemeDark.secondaryColor,
-      secondaryVariant: ColorsThemeDark.secondaryDarkColor,
-    ),
+  static final ThemeData themeData = ThemeData.dark().copyWith(
+    primaryColor: ColorsThemeDark.primaryColor,
+    accentColor: ColorsThemeDark.secondaryColor,
+    primaryColorDark: ColorsThemeDark.primaryDarkColor,
+    primaryColorLight: ColorsThemeDark.primaryLightColor,
     primaryTextTheme: GoogleFonts.inconsolataTextTheme(
       ThemeData.dark().primaryTextTheme,
     ),
@@ -25,12 +23,13 @@ abstract class AppThemeDark {
           borderRadius: BorderRadius.circular(50),
         ),
         primary: ColorsThemeDark.primaryTextColor,
+        backgroundColor: ColorsThemeDark.primaryLightColor
       ),
     ),
     appBarTheme: AppBarTheme(color: ColorsThemeDark.primaryColor),
     toggleButtonsTheme: ToggleButtonsThemeData(
-      fillColor: ColorsThemeDark.primaryColor,
-      color: ColorsThemeDark.secondaryColor,
+      fillColor: ColorsThemeDark.primaryLightColor,
+      color: ColorsThemeDark.secondaryLightColor,
       selectedColor: ColorsThemeDark.primaryTextColor,
       borderWidth: 2,
       borderColor: ColorsThemeDark.secondaryLightColor,
