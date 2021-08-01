@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class RoundedButton extends StatelessWidget {
-  final IconData icon;
+class RoundedCornerButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final IconData icon;
+  final VoidCallback? onPressed;
 
-  const RoundedButton({
+  const RoundedCornerButton({
     Key? key,
-    required this.onPressed,
-    required this.icon,
     required this.label,
+    required this.icon,
+    this.onPressed,
   }) : super(key: key);
 
   @override

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:random_password_generator/features/presentation/components/password_list_item.dart';
 
 class PasswordList extends StatelessWidget {
-  final List<String> items;
-  final ValueChanged<String> onSelect;
+  final List<String> passwords;
 
   const PasswordList({
     Key? key,
-    required this.items,
-    required this.onSelect,
+    required this.passwords,
   }) : super(key: key);
 
   @override
@@ -21,13 +19,12 @@ class PasswordList extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              final item = this.items.elementAt(index);
+              final item = this.passwords.elementAt(index);
               return PasswordListItem(
                 password: item,
-                onTap: () => this.onSelect(item),
               );
             },
-            childCount: this.items.length,
+            childCount: this.passwords.length,
           ),
         ),
       ],

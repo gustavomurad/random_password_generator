@@ -11,7 +11,7 @@ import 'package:random_password_generator/features/presentation/components/error
 import 'package:random_password_generator/features/presentation/components/password_length_picker.dart';
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
 import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
-import 'package:random_password_generator/features/presentation/components/rounded_button.dart';
+import 'package:random_password_generator/features/presentation/components/rounded_corner_button.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -64,8 +64,7 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     flex: 2,
                     child: PasswordList(
-                      items: state.password,
-                      onSelect: (value) => _copyPassword(password: value),
+                      passwords: state.password,
                     ),
                   ),
                   Container(
@@ -78,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Flexible(
                               flex: 5,
-                              child: RoundedButton(
+                              child: RoundedCornerButton(
                                 onPressed: () => generateNewPassword(),
                                 label: 'REFRESH',
                                 icon: Icons.refresh,
@@ -89,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Flexible(
                               flex: 5,
-                              child: RoundedButton(
+                              child: RoundedCornerButton(
                                 onPressed: () => _copyAllPasswords(
                                   passwords: state.password,
                                 ),

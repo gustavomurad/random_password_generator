@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       theme: AppThemeLight.themeData,
       darkTheme: AppThemeDark.themeData,
       themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
       home: BlocProvider<PasswordBloc>(
         create: (context) => PasswordBloc(),
         child: HomePage(),
