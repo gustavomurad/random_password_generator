@@ -25,6 +25,7 @@ class NumberPicker extends StatelessWidget {
           if (this.label != null)
             Text(
               this.label!,
+              key: Key('label'),
               style: Theme.of(context).textTheme.headline6,
             ),
           SizedBox(
@@ -42,6 +43,7 @@ class NumberPicker extends StatelessWidget {
                     color: Theme.of(context).primaryColorLight,
                   ),
                   child: IconButton(
+                    key: Key('icon-button-remove'),
                     icon: const Icon(Icons.remove),
                     onPressed: this.value == this.minValue
                         ? () => this.onChanged(this.maxValue)
@@ -53,6 +55,7 @@ class NumberPicker extends StatelessWidget {
                 flex: 2,
                 child: Text(
                   this.value.toString(),
+                  key: Key('value'),
                   style: Theme.of(context).textTheme.headline3,
                   textAlign: TextAlign.center,
                 ),
@@ -66,6 +69,7 @@ class NumberPicker extends StatelessWidget {
                     color: Theme.of(context).primaryColorLight,
                   ),
                   child: IconButton(
+                    key: Key('icon-button-add'),
                     onPressed: this.value == this.maxValue
                         ? () => this.onChanged(this.minValue)
                         : () => this.onChanged(this.value + 1),

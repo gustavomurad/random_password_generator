@@ -14,11 +14,13 @@ class ErrorDialog {
         context: this.context,
         barrierDismissible: false,
         builder: (BuildContext context) => AlertDialog(
+          key: Key('error-dialog'),
           elevation: 25,
           content: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
+                key: Key('error-dialog-icon'),
                 flex: 1,
                 child: Icon(Icons.error),
               ),
@@ -29,6 +31,7 @@ class ErrorDialog {
                 flex: 6,
                 child: Text(
                   this.message,
+                  key: Key('error-dialog-message'),
                   softWrap: true,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
@@ -41,6 +44,7 @@ class ErrorDialog {
           ),
           actions: <Widget>[
             TextButton(
+              key: Key('error-ok-button'),
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('OK'),
             ),

@@ -185,10 +185,19 @@ class _HomePageState extends State<HomePage> {
   void _showSnackBar({required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 1),
+        duration: const Duration(milliseconds: 1500),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        backgroundColor: Theme.of(context).primaryColorDark,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
         content: Text(
           message,
-          style: TextStyle(
+          textAlign: TextAlign.center,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             letterSpacing: 1,
           ),

@@ -17,14 +17,13 @@ abstract class AppThemeDark {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: TextStyle(letterSpacing: 2),
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        primary: ColorsThemeDark.primaryTextColor,
-        backgroundColor: ColorsThemeDark.primaryLightColor
-      ),
+          textStyle: TextStyle(letterSpacing: 2),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          primary: ColorsThemeDark.primaryTextColor,
+          backgroundColor: ColorsThemeDark.primaryLightColor),
     ),
     appBarTheme: AppBarTheme(color: ColorsThemeDark.primaryColor),
     toggleButtonsTheme: ToggleButtonsThemeData(
