@@ -11,6 +11,7 @@ main() {
     Widget getSubject() => MaterialApp(
           home: Scaffold(
             body: PasswordLengthPicker(
+              label: 'Length',
               length: value,
               onChanged: (newValue) => value = newValue,
             ),

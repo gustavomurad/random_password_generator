@@ -1,5 +1,5 @@
 import 'package:random_password_generator/core/util/password.dart';
-import 'package:random_password_generator/features/data/services/password_service.dart';
+import 'package:random_password_generator/features/domain/services/password_service.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 
 class PasswordServiceImpl implements PasswordService {
