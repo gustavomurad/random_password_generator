@@ -12,6 +12,7 @@ import 'package:random_password_generator/features/presentation/components/passw
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
 import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
 import 'package:random_password_generator/features/presentation/components/rounded_corner_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -25,8 +26,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int length = 20;
   int quantity = 1;
+
   List<bool> toggleButtonSelectionItems = [true, true, true, true, true];
   final List<String> toggleButtonsLabels = ['abc', 'ABC', '123', '!@%', 'Âæß'];
+
+  late AppLocalizations? l10n;
 
   @override
   void initState() {
@@ -36,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    this.l10n = AppLocalizations.of(context);
     final currentBrightness = MediaQuery.of(context).platformBrightness;
     final systemColor = Theme.of(context).primaryColorDark;
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -50,7 +55,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: BlocConsumer<PasswordBloc, PasswordState>(
           listener: (context, state) {
-            if (state.pageState == PageState.error) {
+            if (state.pageState.hasError) {
               ErrorDialog(
                 context: context,
                 message: state.errorMessage ?? '',
@@ -69,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.only(bottom: 10, top: 10),
+                    padding: const EdgeInsets.only(bottom: 10, top: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -79,11 +84,11 @@ class _HomePageState extends State<HomePage> {
                               flex: 5,
                               child: RoundedCornerButton(
                                 onPressed: () => generateNewPassword(),
-                                label: 'REFRESH',
+                                label: this.l10n?.refresh ?? '',
                                 icon: Icons.refresh,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Flexible(
@@ -93,29 +98,31 @@ class _HomePageState extends State<HomePage> {
                                   passwords: state.password,
                                 ),
                                 icon: Icons.copy,
-                                label: 'COPY ALL',
+                                label: this.l10n?.copyAll ?? '',
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           children: [
                             Expanded(
                               child: PasswordQuantityPicker(
+                                label: this.l10n?.passwords,
                                 quantity: this.quantity,
                                 onChanged: (quantity) => setState(() {
                                   this.quantity = quantity;
                                 }),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
                               child: PasswordLengthPicker(
+                                label: this.l10n?.length,
                                 length: this.length,
                                 onChanged: (length) => setState(
                                   () => this.length = length,
@@ -124,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         CharacterChoiceToggleButton(
@@ -168,18 +175,22 @@ class _HomePageState extends State<HomePage> {
 
   bool _canPressCharacterToggle(int index) => (this
               .toggleButtonSelectionItems
-              .where((element) => element)
+              .where(
+                (element) => element,
+              )
               .length !=
           1 ||
       index !=
-          this.toggleButtonSelectionItems.lastIndexWhere((element) => element));
+          this.toggleButtonSelectionItems.lastIndexWhere(
+                (element) => element,
+              ));
 
   void _copyAllPasswords({required List<String> passwords}) {
     Clipboard.setData(
       ClipboardData(text: passwords.join(' ; ')),
     );
 
-    _showSnackBar(message: 'All password\'s copied to clipboard!');
+    _showSnackBar(message: this.l10n?.copyAllSnackBarMessage ?? '');
   }
 
   void _showSnackBar({required String message}) {

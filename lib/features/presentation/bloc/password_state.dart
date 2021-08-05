@@ -2,6 +2,14 @@ import 'package:equatable/equatable.dart';
 
 enum PageState { ready, success, error }
 
+extension PageStateBoolean on PageState {
+  bool get isReady => this == PageState.ready;
+
+  bool get isSuccess => this == PageState.success;
+
+  bool get hasError => this == PageState.error;
+}
+
 class PasswordState extends Equatable {
   final List<String> password;
   final PageState pageState;

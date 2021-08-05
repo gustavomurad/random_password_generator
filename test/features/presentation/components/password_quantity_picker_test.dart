@@ -11,6 +11,7 @@ main() {
     Widget getSubject() => MaterialApp(
           home: Scaffold(
             body: PasswordQuantityPicker(
+              label: 'Passwords',
               quantity: value,
               onChanged: (newValue) => value = newValue,
             ),

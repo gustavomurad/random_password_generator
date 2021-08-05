@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+  "appTitle" : "Random Password Generator",
+  "copyAll": "COPY ALL",
+  "refresh" :"REFRESH",
+  "passwords" : "Passwords",
+  "length" : "Length",
+  "copyAllSnackBarMessage" : "All password's copied to clipboard!"
+}
