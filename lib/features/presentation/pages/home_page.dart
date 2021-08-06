@@ -8,6 +8,7 @@ import 'package:random_password_generator/features/presentation/bloc/password_ev
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
 import 'package:random_password_generator/features/presentation/components/character_choice_toggle_button.dart';
 import 'package:random_password_generator/features/presentation/components/error_dialog.dart';
+import 'package:random_password_generator/features/presentation/components/password_generation_controller.dart';
 import 'package:random_password_generator/features/presentation/components/password_length_picker.dart';
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
 import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
@@ -72,81 +73,34 @@ class _HomePageState extends State<HomePage> {
                       passwords: state.password,
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    padding: const EdgeInsets.only(bottom: 10, top: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Row(
-                          children: [
-                            Flexible(
-                              flex: 5,
-                              child: RoundedCornerButton(
-                                onPressed: () => generateNewPassword(),
-                                label: this.l10n?.refresh ?? '',
-                                icon: Icons.refresh,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Flexible(
-                              flex: 5,
-                              child: RoundedCornerButton(
-                                onPressed: () => _copyAllPasswords(
-                                  passwords: state.password,
-                                ),
-                                icon: Icons.copy,
-                                label: this.l10n?.copyAll ?? '',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: PasswordQuantityPicker(
-                                label: this.l10n?.passwords,
-                                quantity: this.quantity,
-                                onChanged: (quantity) => setState(() {
-                                  this.quantity = quantity;
-                                }),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: PasswordLengthPicker(
-                                label: this.l10n?.length,
-                                length: this.length,
-                                onChanged: (length) => setState(
-                                  () => this.length = length,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        CharacterChoiceToggleButton(
-                          onPressed: (index) => _canPressCharacterToggle(index)
-                              ? setState(() {
-                                  this.toggleButtonSelectionItems[index] =
-                                      !this.toggleButtonSelectionItems[index];
-                                  generateNewPassword();
-                                })
-                              : null,
-                          isSelected: this.toggleButtonSelectionItems,
-                          children: this.toggleButtonsLabels,
-                        ),
-                      ],
+                  PasswordGenerationController(
+                    refreshButtonLabel: this.l10n?.refresh,
+                    onRefreshButtonPressed: () => generateNewPassword(),
+                    copyAllButtonLabel: this.l10n?.copyAll,
+                    onCopyAllButtonPressed: () => _copyAllPasswords(
+                      passwords: state.password,
                     ),
+                    quantityPickerLabel: this.l10n?.passwords,
+                    quantityPickerValue: this.quantity,
+                    quantityPickerChanged: (quantity) => setState(() {
+                      this.quantity = quantity;
+                    }),
+                    lengthPickerLabel: this.l10n?.length,
+                    lengthPickerValue: this.length,
+                    lengthPickerChanged: (length) => setState(
+                      () => this.length = length,
+                    ),
+                    onToggleButtonPressed: (index) =>
+                        _canPressCharacterToggle(index)
+                            ? setState(() {
+                                this.toggleButtonSelectionItems[index] =
+                                    !this.toggleButtonSelectionItems[index];
+                                generateNewPassword();
+                              })
+                            : null,
+                    onToggleButtonChildren: this.toggleButtonsLabels,
+                    onToggleButtonSelectedItems:
+                        this.toggleButtonSelectionItems,
                   ),
                 ],
               ),
