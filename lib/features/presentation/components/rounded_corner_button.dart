@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class RoundedCornerButton extends StatelessWidget {
-  final String label;
+  final String? label;
   final IconData icon;
   final VoidCallback? onPressed;
 
   const RoundedCornerButton({
     Key? key,
-    required this.label,
+    this.label,
     required this.icon,
     this.onPressed,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class RoundedCornerButton extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text(this.label)
+          if (this.label != null) Text(this.label!),
         ],
       ),
     );
