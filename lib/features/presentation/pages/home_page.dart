@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_bloc.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
-import 'package:random_password_generator/features/presentation/components/character_choice_toggle_button.dart';
 import 'package:random_password_generator/features/presentation/components/error_dialog.dart';
 import 'package:random_password_generator/features/presentation/components/password_generation_controller.dart';
-import 'package:random_password_generator/features/presentation/components/password_length_picker.dart';
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
-import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
-import 'package:random_password_generator/features/presentation/components/rounded_corner_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
