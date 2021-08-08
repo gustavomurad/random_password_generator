@@ -10,11 +10,16 @@ abstract class AppThemeLight {
     primaryColorDark: ColorsThemeLight.primaryDarkColor,
     primaryColorLight: ColorsThemeLight.primaryLightColor,
     primaryTextTheme: GoogleFonts.inconsolataTextTheme(
-      ThemeData.light().primaryTextTheme,
+      ThemeData.dark().primaryTextTheme,
     ),
     textTheme: GoogleFonts.inconsolataTextTheme(
-      ThemeData.light().textTheme,
+      ThemeData.dark().textTheme.copyWith(
+            headline4: TextStyle(
+              color: ColorsThemeLight.primaryDarkColor,
+            ),
+          ),
     ),
+    iconTheme: IconThemeData(color: ColorsThemeLight.secondaryLightColor),
     highlightColor: ColorsThemeLight.primaryLightColor,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -23,7 +28,7 @@ abstract class AppThemeLight {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        primary: ColorsThemeLight.secondaryTextColor,
+        primary: ColorsThemeLight.secondaryLightColor,
         backgroundColor: ColorsThemeLight.primaryLightColor,
       ),
     ),
@@ -31,7 +36,7 @@ abstract class AppThemeLight {
     toggleButtonsTheme: ToggleButtonsThemeData(
       fillColor: ColorsThemeLight.primaryLightColor,
       color: ColorsThemeLight.primaryDarkColor,
-      selectedColor: ColorsThemeLight.secondaryTextColor,
+      selectedColor: ColorsThemeLight.secondaryLightColor,
       borderWidth: 2,
       borderColor: ColorsThemeLight.primaryLightColor,
       selectedBorderColor: ColorsThemeLight.primaryColor,
