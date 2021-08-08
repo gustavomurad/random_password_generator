@@ -3,7 +3,7 @@ description: A Random password generator
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+8
+version: 1.0.0+9
 
 environment:
   sdk: ">=2.13.0 <3.0.0"
@@ -24,7 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  mockito: ^5.0.13
+  mockito: ^5.0.14
 flutter:
   uses-material-design: true
   generate: true
