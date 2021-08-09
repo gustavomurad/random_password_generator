@@ -8,6 +8,7 @@ import 'package:random_password_generator/features/presentation/bloc/password_bl
 import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
 import 'package:random_password_generator/features/presentation/components/error_dialog.dart';
+import 'package:random_password_generator/features/presentation/components/password_bottom_sheet.dart';
 import 'package:random_password_generator/features/presentation/components/password_generation_controller.dart';
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
 
@@ -50,31 +51,20 @@ class _HomePageState extends State<HomePage> {
         systemNavigationBarIconBrightness: currentBrightness,
       ),
       child: Scaffold(
-        body: BlocConsumer<PasswordBloc, PasswordState>(
-          listener: (context, state) {
-            if (state.pageState.hasError) {
-              ErrorDialog(
-                context: context,
-                message: state.errorMessage ?? '',
-              ).show();
-            }
-          },
-          builder: (context, state) {
-            return Center(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: PasswordList(
-                      passwords: state.password,
-                    ),
-                  ),
-                  PasswordGenerationController(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors.transparent,
+              barrierColor: Colors.transparent,
+              builder: (context) {
+                return PasswordBottomSheet(
+                  child: PasswordGenerationController(
                     refreshButtonLabel: this.l10n?.refresh,
                     onRefreshButtonPressed: () => generateNewPassword(),
                     copyAllButtonLabel: this.l10n?.copyAll,
                     onCopyAllButtonPressed: () => _copyAllPasswords(
-                      passwords: state.password,
+                      passwords: [],
                     ),
                     quantityPickerLabel: this.l10n?.passwords,
                     quantityPickerValue: this.quantity,
@@ -98,6 +88,60 @@ class _HomePageState extends State<HomePage> {
                     onToggleButtonSelectedItems:
                         this.toggleButtonSelectionItems,
                   ),
+                );
+              },
+            );
+          },
+          child: Icon(Icons.add),
+        ),
+        body: BlocConsumer<PasswordBloc, PasswordState>(
+          listener: (context, state) {
+            if (state.pageState.hasError) {
+              ErrorDialog(
+                context: context,
+                message: state.errorMessage ?? '',
+              ).show();
+            }
+          },
+          builder: (context, state) {
+            return Center(
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: PasswordList(
+                      passwords: state.password,
+                    ),
+                  ),
+                  // PasswordGenerationController(
+                  //   refreshButtonLabel: this.l10n?.refresh,
+                  //   onRefreshButtonPressed: () => generateNewPassword(),
+                  //   copyAllButtonLabel: this.l10n?.copyAll,
+                  //   onCopyAllButtonPressed: () => _copyAllPasswords(
+                  //     passwords: state.password,
+                  //   ),
+                  //   quantityPickerLabel: this.l10n?.passwords,
+                  //   quantityPickerValue: this.quantity,
+                  //   quantityPickerChanged: (quantity) => setState(() {
+                  //     this.quantity = quantity;
+                  //   }),
+                  //   lengthPickerLabel: this.l10n?.length,
+                  //   lengthPickerValue: this.length,
+                  //   lengthPickerChanged: (length) => setState(
+                  //     () => this.length = length,
+                  //   ),
+                  //   onToggleButtonPressed: (index) =>
+                  //       _canPressCharacterToggle(index)
+                  //           ? setState(() {
+                  //               this.toggleButtonSelectionItems[index] =
+                  //                   !this.toggleButtonSelectionItems[index];
+                  //               generateNewPassword();
+                  //             })
+                  //           : null,
+                  //   onToggleButtonChildren: this.toggleButtonsLabels,
+                  //   onToggleButtonSelectedItems:
+                  //       this.toggleButtonSelectionItems,
+                  // ),
                 ],
               ),
             );

@@ -35,9 +35,7 @@ class NumberPicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Container(
-                  width: 80,
-                  height: 80,
+                child: Ink(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Theme.of(context).primaryColorLight,
@@ -61,9 +59,7 @@ class NumberPicker extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Container(
-                  width: 80,
-                  height: 80,
+                child: Ink(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Theme.of(context).primaryColorLight,

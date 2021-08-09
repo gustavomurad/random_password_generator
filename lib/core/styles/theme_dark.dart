@@ -18,7 +18,6 @@ abstract class AppThemeDark {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
           textStyle: TextStyle(letterSpacing: 2),
-          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -30,9 +29,6 @@ abstract class AppThemeDark {
       fillColor: ColorsThemeDark.primaryLightColor,
       color: ColorsThemeDark.secondaryLightColor,
       selectedColor: ColorsThemeDark.primaryTextColor,
-      borderWidth: 2,
-      borderColor: ColorsThemeDark.secondaryLightColor,
-      selectedBorderColor: ColorsThemeDark.secondaryTextColor,
       textStyle: TextStyle().copyWith(
         fontWeight: FontWeight.bold,
         letterSpacing: 3,

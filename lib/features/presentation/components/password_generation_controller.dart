@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_password_generator/features/presentation/components/character_choice_toggle_button.dart';
-import 'package:random_password_generator/features/presentation/components/password_length_picker.dart';
-import 'package:random_password_generator/features/presentation/components/password_quantity_picker.dart';
+import 'package:random_password_generator/features/presentation/components/number_picker.dart';
 import 'package:random_password_generator/features/presentation/components/rounded_corner_button.dart';
 
 class PasswordGenerationController extends StatelessWidget {
@@ -46,7 +45,7 @@ class PasswordGenerationController extends StatelessWidget {
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           ),
-          color: Theme.of(context).primaryColorLight.withOpacity(0.75)),
+          color: Theme.of(context).primaryColor),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -79,9 +78,11 @@ class PasswordGenerationController extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: PasswordQuantityPicker(
+                child: NumberPicker(
                   label: this.quantityPickerLabel,
-                  quantity: this.quantityPickerValue,
+                  minValue: 1,
+                  maxValue: 100,
+                  value: this.quantityPickerValue,
                   onChanged: this.quantityPickerChanged,
                 ),
               ),
@@ -89,9 +90,11 @@ class PasswordGenerationController extends StatelessWidget {
                 width: 10,
               ),
               Expanded(
-                child: PasswordLengthPicker(
+                child: NumberPicker(
                   label: this.lengthPickerLabel,
-                  length: this.lengthPickerValue,
+                  minValue: 1,
+                  maxValue: 100,
+                  value: this.lengthPickerValue,
                   onChanged: this.lengthPickerChanged,
                 ),
               ),
