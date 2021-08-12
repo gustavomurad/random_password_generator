@@ -3,10 +3,12 @@ import 'package:random_password_generator/features/presentation/components/passw
 
 class PasswordList extends StatelessWidget {
   final List<String> passwords;
+  final ValueChanged<String> onPressed;
 
   const PasswordList({
     Key? key,
     required this.passwords,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -15,6 +17,7 @@ class PasswordList extends StatelessWidget {
       slivers: [
         SliverAppBar(
           title: const Text('Random Password Generator'),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -22,6 +25,7 @@ class PasswordList extends StatelessWidget {
               final item = this.passwords.elementAt(index);
               return PasswordListItem(
                 password: item,
+                onPressed: this.onPressed,
               );
             },
             childCount: this.passwords.length,

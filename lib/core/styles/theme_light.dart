@@ -19,6 +19,10 @@ abstract class AppThemeLight {
             ),
           ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsThemeLight.primaryLightColor,
+      foregroundColor: ColorsThemeLight.secondaryLightColor,
+    ),
     iconTheme: IconThemeData(color: ColorsThemeLight.secondaryLightColor),
     highlightColor: ColorsThemeLight.primaryLightColor,
     textButtonTheme: TextButtonThemeData(

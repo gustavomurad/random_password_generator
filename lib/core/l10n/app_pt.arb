@@ -1,9 +1,9 @@
 {
   "@@locale": "pt",
   "appTitle" : "Random Password Generator",
-  "copyAll": "COPIAR",
-  "refresh" :"ATUALIZAR",
+  "cancel": "CANCELAR",
+  "ok" :"OK",
   "passwords" : "Senhas",
   "length" : "Comprimento",
-  "copyAllSnackBarMessage" : "Todas as senhas foram copiadas para a área de transferência!"
+  "copyAllSnackBarMessage" : "A senha foi copiada para a área de transferência!"
 }

@@ -15,10 +15,8 @@ class PasswordBottomSheet extends StatefulWidget {
 class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Container(
-      //margin: const EdgeInsets.all(16.0),
+      width: MediaQuery.of(context).size.width,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Colors.transparent,

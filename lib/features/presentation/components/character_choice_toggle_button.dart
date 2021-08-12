@@ -16,17 +16,23 @@ class CharacterChoiceToggleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return ToggleButtons(
-      constraints: BoxConstraints.expand(width: size.width * 0.17, height: 50),
-      children: List.generate(
-        this.children.length,
-        (index) => createButton(this.children.elementAt(index)),
-        growable: false,
-      ),
-      isSelected: this.isSelected,
-      onPressed: (index) => onPressed(index),
-      borderRadius: BorderRadius.circular(30),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ToggleButtons(
+          constraints: BoxConstraints.expand(
+            width: (constraints.biggest.width - 10) / this.children.length,
+            height: 45,
+          ),
+          children: List.generate(
+            this.children.length,
+            (index) => createButton(this.children.elementAt(index)),
+            growable: false,
+          ),
+          isSelected: this.isSelected,
+          onPressed: (index) => onPressed(index),
+          borderRadius: BorderRadius.circular(30),
+        );
+      },
     );
   }
 
