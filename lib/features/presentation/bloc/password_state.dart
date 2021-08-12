@@ -9,8 +9,6 @@ class PasswordSuccess implements PasswordState {
   final List<String> password;
 
   PasswordSuccess({required this.password});
-
-  factory PasswordSuccess.initial() => PasswordSuccess(password: []);
 }
 
 class PasswordErrorState implements PasswordState {

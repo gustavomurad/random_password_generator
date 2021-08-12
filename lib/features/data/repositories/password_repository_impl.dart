@@ -15,4 +15,18 @@ class PasswordRepositoryImpl implements PasswordRepository {
   }) {
     return this._service.generatePassword(passwordModel: passwordModel);
   }
+
+  @override
+  Future<void> saveConfiguration({
+    required PasswordModel passwordModel,
+  }) {
+    return this._service.saveConfiguration(json: passwordModel.toJson());
+  }
+
+  @override
+  Future<PasswordModel> loadConfiguration() async {
+    return PasswordModel.fromJson(
+      json: await this._service.loadConfiguration(),
+    );
+  }
 }

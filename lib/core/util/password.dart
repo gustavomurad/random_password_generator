@@ -197,13 +197,13 @@ class Password {
   }) =>
       Future.microtask(
         () {
-          List<String> chars = [];
-
-          if (includeLowercaseLetters) chars.addAll(lowercaseLetters);
-          if (includeUppercaseLetters) chars.addAll(uppercaseLetters);
-          if (includeNumbers) chars.addAll(numbers);
-          if (includeSpecialCharacters) chars.addAll(specialCharacters);
-          if (includeLatin1Characters) chars.addAll(latin1Characters);
+          final List<String> chars = [
+            if (includeLowercaseLetters) ...lowercaseLetters,
+            if (includeUppercaseLetters) ...uppercaseLetters,
+            if (includeNumbers) ...numbers,
+            if (includeSpecialCharacters) ...specialCharacters,
+            if (includeLatin1Characters) ...latin1Characters
+          ];
 
           if (chars.isEmpty)
             throw ArgumentError(

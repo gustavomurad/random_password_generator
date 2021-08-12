@@ -14,8 +14,14 @@ abstract class AppThemeLight {
     ),
     textTheme: GoogleFonts.inconsolataTextTheme(
       ThemeData.dark().textTheme.copyWith(
+            headline3: TextStyle(
+              color: ColorsThemeLight.secondaryTextColor,
+            ),
             headline4: TextStyle(
               color: ColorsThemeLight.primaryDarkColor,
+            ),
+            headline6: TextStyle(
+              color: ColorsThemeLight.secondaryTextColor,
             ),
           ),
     ),
@@ -27,7 +33,10 @@ abstract class AppThemeLight {
     highlightColor: ColorsThemeLight.primaryLightColor,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: TextStyle(letterSpacing: 2),
+        textStyle: TextStyle(
+          letterSpacing: 2,
+          fontWeight: FontWeight.bold,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),

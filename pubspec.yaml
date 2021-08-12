@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^7.1.0
   intl: ^0.17.0
   shared_preferences: ^2.0.6
+  logger: ^1.0.0
 
 dev_dependencies:
   flutter_test:
