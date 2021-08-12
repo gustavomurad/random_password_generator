@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/password_repository.dart';
 import 'package:random_password_generator/features/domain/use_cases/generate_password_use_case.dart';
-import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
-import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
+
+part 'password_events.dart';
+
+part 'password_state.dart';
 
 class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
   final PasswordRepository _repository;
@@ -10,7 +14,7 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
   PasswordBloc({
     required PasswordRepository repository,
   })  : this._repository = repository,
-        super(PasswordState.initial());
+        super(PasswordInitialState());
 
   @override
   Stream<PasswordState> mapEventToState(PasswordEvents event) async* {
@@ -20,17 +24,14 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
           repository: this._repository,
         );
 
-        yield PasswordState(
+        yield PasswordSuccess(
           password: await useCase(passwordModel: event.passwordModel),
-          pageState: PageState.success,
         );
       } catch (e) {
-        yield PasswordState(
-            password: [],
-            pageState: PageState.error,
-            errorMessage: (e is ArgumentError)
-                ? e.message
-                : 'Error on password generation!');
+        final message =
+            (e is ArgumentError) ? e.message : 'Error on password generation!';
+
+        yield PasswordErrorState(errorMessage: message);
       }
     }
   }

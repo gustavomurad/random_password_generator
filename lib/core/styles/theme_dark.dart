@@ -9,16 +9,30 @@ abstract class AppThemeDark {
     accentColor: ColorsThemeDark.secondaryColor,
     primaryColorDark: ColorsThemeDark.primaryDarkColor,
     primaryColorLight: ColorsThemeDark.primaryLightColor,
-    primaryTextTheme: GoogleFonts.inconsolataTextTheme(
-      ThemeData.dark().primaryTextTheme,
-    ),
+    scaffoldBackgroundColor: ColorsThemeDark.primaryLightColor,
     textTheme: GoogleFonts.inconsolataTextTheme(
-      ThemeData.dark().textTheme,
+      ThemeData.dark().textTheme.copyWith(
+            headline3: TextStyle(
+              color: ColorsThemeDark.primaryTextColor,
+            ),
+            headline4: TextStyle(
+              color: ColorsThemeDark.primaryTextColor,
+            ),
+            headline6: TextStyle(
+              color: ColorsThemeDark.primaryTextColor,
+            ),
+          ),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsThemeDark.primaryDarkColor,
+      foregroundColor: ColorsThemeDark.primaryTextColor,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-          textStyle: TextStyle(letterSpacing: 2),
-          elevation: 2,
+          textStyle: TextStyle(
+            letterSpacing: 2,
+            fontWeight: FontWeight.bold,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -30,9 +44,6 @@ abstract class AppThemeDark {
       fillColor: ColorsThemeDark.primaryLightColor,
       color: ColorsThemeDark.secondaryLightColor,
       selectedColor: ColorsThemeDark.primaryTextColor,
-      borderWidth: 2,
-      borderColor: ColorsThemeDark.secondaryLightColor,
-      selectedBorderColor: ColorsThemeDark.secondaryTextColor,
       textStyle: TextStyle().copyWith(
         fontWeight: FontWeight.bold,
         letterSpacing: 3,

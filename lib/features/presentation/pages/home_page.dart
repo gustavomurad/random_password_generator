@@ -5,10 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/presentation/bloc/password_bloc.dart';
-import 'package:random_password_generator/features/presentation/bloc/password_events.dart';
-import 'package:random_password_generator/features/presentation/bloc/password_state.dart';
 import 'package:random_password_generator/features/presentation/components/error_dialog.dart';
-import 'package:random_password_generator/features/presentation/components/password_generation_controller.dart';
+import 'package:random_password_generator/features/presentation/components/password_bottom_sheet.dart';
+import 'package:random_password_generator/features/presentation/pages/password_options_page.dart';
 import 'package:random_password_generator/features/presentation/components/password_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,120 +23,115 @@ class _HomePageState extends State<HomePage> {
   int length = 20;
   int quantity = 1;
 
-  List<bool> toggleButtonSelectionItems = [true, true, true, true, true];
-  final List<String> toggleButtonsLabels = ['abc', 'ABC', '123', '!@%', 'Âæß'];
+  List<bool> toggleValues = [true, true, true, true, true];
 
   late AppLocalizations? l10n;
 
   @override
   void initState() {
     super.initState();
-    generateNewPassword();
   }
 
   @override
   Widget build(BuildContext context) {
     this.l10n = AppLocalizations.of(context);
     final currentBrightness = MediaQuery.of(context).platformBrightness;
-    final systemColor = Theme.of(context).primaryColorDark;
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: systemColor,
-        systemNavigationBarColor: systemColor,
-        systemNavigationBarDividerColor: systemColor,
-        statusBarBrightness: currentBrightness,
-        statusBarIconBrightness: currentBrightness,
-        systemNavigationBarIconBrightness: currentBrightness,
-      ),
-      child: Scaffold(
-        body: BlocConsumer<PasswordBloc, PasswordState>(
-          listener: (context, state) {
-            if (state.pageState.hasError) {
-              ErrorDialog(
-                context: context,
-                message: state.errorMessage ?? '',
-              ).show();
-            }
-          },
-          builder: (context, state) {
-            return Center(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: PasswordList(
-                      passwords: state.password,
-                    ),
-                  ),
-                  PasswordGenerationController(
-                    refreshButtonLabel: this.l10n?.refresh,
-                    onRefreshButtonPressed: () => generateNewPassword(),
-                    copyAllButtonLabel: this.l10n?.copyAll,
-                    onCopyAllButtonPressed: () => _copyAllPasswords(
-                      passwords: state.password,
-                    ),
-                    quantityPickerLabel: this.l10n?.passwords,
-                    quantityPickerValue: this.quantity,
-                    quantityPickerChanged: (quantity) => setState(() {
-                      this.quantity = quantity;
-                    }),
-                    lengthPickerLabel: this.l10n?.length,
-                    lengthPickerValue: this.length,
-                    lengthPickerChanged: (length) => setState(
-                      () => this.length = length,
-                    ),
-                    onToggleButtonPressed: (index) =>
-                        _canPressCharacterToggle(index)
-                            ? setState(() {
-                                this.toggleButtonSelectionItems[index] =
-                                    !this.toggleButtonSelectionItems[index];
-                                generateNewPassword();
-                              })
-                            : null,
-                    onToggleButtonChildren: this.toggleButtonsLabels,
-                    onToggleButtonSelectedItems:
-                        this.toggleButtonSelectionItems,
-                  ),
-                ],
-              ),
-            );
-          },
+    final theme = Theme.of(context);
+    return LayoutBuilder(builder: (context, constraints) {
+      return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: theme.primaryColorDark,
+          systemNavigationBarColor: theme.primaryColorDark,
+          systemNavigationBarDividerColor: theme.primaryColorDark,
+          statusBarBrightness: currentBrightness,
+          statusBarIconBrightness: currentBrightness,
+          systemNavigationBarIconBrightness: currentBrightness,
         ),
-      ),
-    );
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: theme.primaryColor,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                barrierColor: Colors.transparent,
+                builder: (context) {
+                  return PasswordBottomSheet(
+                    child: PasswordOptionsPage(
+                      okButtonLabel: this.l10n?.ok,
+                      onOkButtonPressed: (value) {
+                        setState(() {
+                          this.length = value.length;
+                          this.quantity = value.quantity;
+                          this.toggleValues = [
+                            value.lowercaseLetters,
+                            value.uppercaseLetters,
+                            value.numbers,
+                            value.specialCharacters,
+                            value.latin1Characters,
+                          ];
+                        });
+                        Navigator.of(context).pop();
+                        _generateNewPassword(value);
+                      },
+                      cancelButtonLabel: this.l10n?.cancel,
+                      onCancelButtonPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      quantityPickerLabel: this.l10n?.passwords,
+                      quantityPickerValue: this.quantity,
+                      lengthPickerLabel: this.l10n?.length,
+                      lengthPickerValue: this.length,
+                      toggleValues: this.toggleValues,
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.add),
+          ),
+          body: BlocConsumer<PasswordBloc, PasswordState>(
+            listener: (context, state) {
+              if (state is PasswordErrorState) {
+                ErrorDialog(
+                  context: context,
+                  message: state.errorMessage,
+                ).show();
+              }
+            },
+            builder: (context, state) {
+              return Center(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: PasswordList(
+                        onPressed: (value) => _copyPassword(password: value),
+                        passwords:
+                            (state is PasswordSuccess) ? state.password : [],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    });
   }
 
-  void generateNewPassword() {
+  void _generateNewPassword(PasswordModel model) {
     BlocProvider.of<PasswordBloc>(context).add(
       GenerateNewPassword(
-        passwordModel: PasswordModel(
-          length: this.length,
-          quantity: this.quantity,
-          lowercaseLetters: this.toggleButtonSelectionItems[0],
-          uppercaseLetters: this.toggleButtonSelectionItems[1],
-          numbers: this.toggleButtonSelectionItems[2],
-          specialCharacters: this.toggleButtonSelectionItems[3],
-          latin1Characters: this.toggleButtonSelectionItems[4],
-        ),
+        passwordModel: model,
       ),
     );
   }
 
-  bool _canPressCharacterToggle(int index) => (this
-              .toggleButtonSelectionItems
-              .where(
-                (element) => element,
-              )
-              .length !=
-          1 ||
-      index !=
-          this.toggleButtonSelectionItems.lastIndexWhere(
-                (element) => element,
-              ));
-
-  void _copyAllPasswords({required List<String> passwords}) {
+  void _copyPassword({required String password}) {
     Clipboard.setData(
-      ClipboardData(text: passwords.join(' ; ')),
+      ClipboardData(text: password),
     );
 
     _showSnackBar(message: this.l10n?.copyAllSnackBarMessage ?? '');
@@ -148,20 +142,19 @@ class _HomePageState extends State<HomePage> {
       SnackBar(
         duration: const Duration(milliseconds: 1500),
         padding: const EdgeInsets.symmetric(
-          horizontal: 10,
+          horizontal: 20,
         ),
         backgroundColor: Theme.of(context).primaryColorDark,
-        behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         content: Text(
           message,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+              color: Colors.white),
         ),
       ),
     );

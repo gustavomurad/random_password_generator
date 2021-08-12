@@ -7,8 +7,8 @@ import 'package:random_password_generator/features/presentation/components/passw
 void main() {
   List<String> passwords = [];
 
-  setUp(() {
-    passwords = Password.generate(length: 20, quantity: 5);
+  setUp(() async {
+    passwords = await Password.generate(length: 20, quantity: 5);
   });
 
   testWidgets('PasswordList has 5 passwords', (WidgetTester tester) async {
@@ -16,12 +16,16 @@ void main() {
       MaterialApp(
         home: PasswordList(
           passwords: passwords,
+          onPressed: (value) => expect(passwords.contains(value), true),
         ),
       ),
     );
 
+    await tester.tap(find.text(passwords.first));
+
     passwords.forEach((element) {
       final passwordFinder = find.widgetWithText(PasswordListItem, element);
+
       expect(passwordFinder, findsOneWidget);
     });
   });

@@ -1,11 +1,13 @@
-import 'package:random_password_generator/features/domain/models/password_model.dart';
+part of 'password_bloc.dart';
 
 abstract class PasswordEvents {}
 
 class GenerateNewPassword extends PasswordEvents {
-  final PasswordModel passwordModel;
+  final PasswordModel _passwordModel;
 
   GenerateNewPassword({
-    required this.passwordModel,
-  });
+    required PasswordModel passwordModel,
+  }) : this._passwordModel = passwordModel;
+
+  get passwordModel => this._passwordModel;
 }

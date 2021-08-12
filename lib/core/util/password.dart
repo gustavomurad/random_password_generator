@@ -186,7 +186,7 @@ class Password {
     'ÿ'
   ];
 
-  static List<String> generate({
+  static Future<List<String>> generate({
     int length = 20,
     int quantity = 1,
     bool includeLowercaseLetters = true,
@@ -194,30 +194,31 @@ class Password {
     bool includeNumbers = true,
     bool includeSpecialCharacters = true,
     bool includeLatin1Characters = true,
-  }) {
-    List<String> chars = [];
+  }) =>
+      Future.microtask(
+        () {
+          List<String> chars = [];
 
-    if (includeLowercaseLetters) chars.addAll(lowercaseLetters);
-    if (includeUppercaseLetters) chars.addAll(uppercaseLetters);
-    if (includeNumbers) chars.addAll(numbers);
-    if (includeSpecialCharacters) chars.addAll(specialCharacters);
-    if (includeLatin1Characters) chars.addAll(latin1Characters);
+          if (includeLowercaseLetters) chars.addAll(lowercaseLetters);
+          if (includeUppercaseLetters) chars.addAll(uppercaseLetters);
+          if (includeNumbers) chars.addAll(numbers);
+          if (includeSpecialCharacters) chars.addAll(specialCharacters);
+          if (includeLatin1Characters) chars.addAll(latin1Characters);
 
-    if (chars.isEmpty)
-      throw ArgumentError(
-        'You must select at least one type of character!',
+          if (chars.isEmpty)
+            throw ArgumentError(
+              'You must select at least one type of character!',
+            );
+
+          return List.generate(
+            quantity,
+            (index) => _generatePassword(
+              length: length,
+              chars: chars,
+            ),
+          );
+        },
       );
-
-    final passwords = List.generate(
-      quantity,
-      (index) => _generatePassword(
-        length: length,
-        chars: chars,
-      ),
-    );
-
-    return passwords;
-  }
 
   static String _generatePassword({
     required int length,

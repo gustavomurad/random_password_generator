@@ -1,31 +1,20 @@
-import 'package:equatable/equatable.dart';
+part of 'password_bloc.dart';
 
-enum PageState { ready, success, error }
+@immutable
+abstract class PasswordState {}
 
-extension PageStateBoolean on PageState {
-  bool get isReady => this == PageState.ready;
+class PasswordInitialState implements PasswordState {}
 
-  bool get isSuccess => this == PageState.success;
+class PasswordSuccess implements PasswordState {
+  final List<String> password;
 
-  bool get hasError => this == PageState.error;
+  PasswordSuccess({required this.password});
+
+  factory PasswordSuccess.initial() => PasswordSuccess(password: []);
 }
 
-class PasswordState extends Equatable {
-  final List<String> password;
-  final PageState pageState;
-  final String? errorMessage;
+class PasswordErrorState implements PasswordState {
+  final String errorMessage;
 
-  PasswordState({
-    required this.password,
-    required this.pageState,
-    this.errorMessage,
-  });
-
-  factory PasswordState.initial() => PasswordState(
-        password: [],
-        pageState: PageState.ready,
-      );
-
-  @override
-  List<Object?> get props => [this.password, this.pageState];
+  PasswordErrorState({required this.errorMessage});
 }

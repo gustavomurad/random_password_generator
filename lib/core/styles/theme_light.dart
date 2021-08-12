@@ -19,12 +19,15 @@ abstract class AppThemeLight {
             ),
           ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsThemeLight.primaryLightColor,
+      foregroundColor: ColorsThemeLight.secondaryLightColor,
+    ),
     iconTheme: IconThemeData(color: ColorsThemeLight.secondaryLightColor),
     highlightColor: ColorsThemeLight.primaryLightColor,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: TextStyle(letterSpacing: 2),
-        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
@@ -37,9 +40,6 @@ abstract class AppThemeLight {
       fillColor: ColorsThemeLight.primaryLightColor,
       color: ColorsThemeLight.primaryDarkColor,
       selectedColor: ColorsThemeLight.secondaryLightColor,
-      borderWidth: 2,
-      borderColor: ColorsThemeLight.primaryLightColor,
-      selectedBorderColor: ColorsThemeLight.primaryColor,
       textStyle: TextStyle().copyWith(
         fontWeight: FontWeight.bold,
         letterSpacing: 3,
