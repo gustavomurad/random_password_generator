@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:random_password_generator/features/data/repositories/password_repository_impl.dart';
-
 part 'password_model_extension.dart';
 
 class PasswordModel {

@@ -5,10 +5,10 @@ abstract class PasswordState {}
 
 class PasswordInitialState implements PasswordState {}
 
-class PasswordSuccess implements PasswordState {
+class PasswordSuccessState implements PasswordState {
   final List<String> password;
 
-  PasswordSuccess({required this.password});
+  PasswordSuccessState({required this.password});
 }
 
 class PasswordErrorState implements PasswordState {

@@ -24,12 +24,12 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [_buildHandle(context), this.widget.child],
+        children: [_buildHandle(), this.widget.child],
       ),
     );
   }
 
-  Widget _buildHandle(BuildContext context) {
+  Widget _buildHandle() {
     final theme = Theme.of(context);
 
     return FractionallySizedBox(

@@ -8,7 +8,7 @@ class PasswordSharedPreferences {
     _preferences.setString('configuration', encodedJson);
   }
 
-  static Future<String> loadConfiguration() async {
+  static Future<String?> loadConfiguration() async {
     final _preferences = await SharedPreferences.getInstance();
     return Future.value(_preferences.getString('configuration'));
   }
