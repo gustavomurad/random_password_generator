@@ -9,5 +9,5 @@ class GenerateNewPassword extends PasswordEvents {
     required PasswordModel passwordModel,
   }) : this._passwordModel = passwordModel;
 
-  get passwordModel => this._passwordModel;
+  PasswordModel get passwordModel => this._passwordModel;
 }

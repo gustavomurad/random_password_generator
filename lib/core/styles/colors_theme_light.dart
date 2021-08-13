@@ -11,5 +11,5 @@ abstract class ColorsThemeLight {
   static const Color secondaryLightColor = Color(0xFFffffff);
   static const Color secondaryDarkColor = Color(0xFF9ea7aa);
   static const Color primaryTextColor = Color(0xFF000000);
-  static const Color secondaryTextColor = Color(0xFF000000);
+  static const Color secondaryTextColor = Color(0xFFFFFFFF);
 }

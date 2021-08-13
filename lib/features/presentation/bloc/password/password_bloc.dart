@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:random_password_generator/core/logger/application_logger.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/password_repository.dart';
 import 'package:random_password_generator/features/domain/use_cases/generate_password_use_case.dart';
@@ -9,6 +10,7 @@ part 'password_events.dart';
 part 'password_state.dart';
 
 class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
+  final _logger = ApplicationLogger.logger;
   final PasswordRepository _repository;
 
   PasswordBloc({
@@ -24,10 +26,13 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
           repository: this._repository,
         );
 
-        yield PasswordSuccess(
+        yield PasswordSuccessState(
           password: await useCase(passwordModel: event.passwordModel),
         );
       } catch (e) {
+        _logger.e(
+          'GenerateNewPassword event throws this error => ${e.toString()}',
+        );
         final message =
             (e is ArgumentError) ? e.message : 'Error on password generation!';
 
