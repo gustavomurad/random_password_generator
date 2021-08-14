@@ -40,11 +40,12 @@ jobs:
 
       - name: Run tests
         run: flutter test --coverage
-
-      - name: Upload code coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          flags: app
+        
+      - name: Upload coverage to Codecov 
+        uses: codecov/codecov-action@v1 
+        with: 
+         token: ${{ secrets.CODECOV_TOKEN }} 
+         file: coverage/lcov.info
 
 #  test-bloc:
 #    name: Business logic
