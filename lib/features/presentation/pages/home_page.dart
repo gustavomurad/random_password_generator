@@ -29,11 +29,6 @@ class _HomePageState extends State<HomePage> {
   late AppLocalizations? l10n;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     this.l10n = AppLocalizations.of(context);
     final currentBrightness = MediaQuery.of(context).platformBrightness;
