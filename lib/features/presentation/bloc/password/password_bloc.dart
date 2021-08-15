@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_password_generator/core/logger/application_logger.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/password_repository.dart';
-import 'package:random_password_generator/features/domain/use_cases/generate_password_use_case.dart';
+import 'package:random_password_generator/features/domain/usecases/generate_password_usecase.dart';
 
 part 'password_events.dart';
 
@@ -22,7 +22,7 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
   Stream<PasswordState> mapEventToState(PasswordEvents event) async* {
     if (event is GenerateNewPassword) {
       try {
-        final GeneratePasswordUseCase useCase = GeneratePasswordUseCase(
+        final GeneratePasswordUsecase useCase = GeneratePasswordUsecase(
           repository: this._repository,
         );
 

@@ -8,7 +8,7 @@ class SavePreferencesUsecase {
     required PreferenceRepository repository,
   }) : this._repository = repository;
 
-  Future<void> call({required PasswordModel passwordModel}) {
+  Future<bool> call({required PasswordModel passwordModel}) {
     return _repository.savePreferences(passwordModel: passwordModel);
   }
 }

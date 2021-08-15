@@ -1,23 +1,23 @@
+import 'package:random_password_generator/features/data/datasources/preference_datasource.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/preference_repository.dart';
-import 'package:random_password_generator/features/domain/services/preference_service.dart';
 
 class PreferenceRepositoryImpl implements PreferenceRepository {
-  final PreferenceService _service;
+  final PreferenceDatasource _datasource;
 
   PreferenceRepositoryImpl({
-    required PreferenceService service,
-  }) : this._service = service;
+    required PreferenceDatasource datasource,
+  }) : this._datasource = datasource;
 
   @override
   Future<PasswordModel?> loadPreferences() async {
-    final map = await this._service.loadPreferences();
+    final map = await this._datasource.loadPreferences();
 
     return map != null ? PasswordModel.fromJson(json: map) : null;
   }
 
   @override
-  Future<void> savePreferences({required PasswordModel passwordModel}) {
-    return this._service.savePreferences(json: passwordModel.toJson());
+  Future<bool> savePreferences({required PasswordModel passwordModel}) {
+    return this._datasource.savePreferences(json: passwordModel.toJson());
   }
 }
