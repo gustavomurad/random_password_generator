@@ -10,16 +10,16 @@ class PreferenceSuccessState implements PreferenceState {
 
   PreferenceSuccessState({
     required PasswordModel passwordModel,
-  }) : this._passwordModel = passwordModel;
+  }) : _passwordModel = passwordModel;
 
-  PasswordModel get passwordModel => this._passwordModel;
+  PasswordModel get passwordModel => _passwordModel;
 
   List<bool> get toggleValues => [
-        this._passwordModel.lowercaseLetters,
-        this._passwordModel.uppercaseLetters,
-        this._passwordModel.numbers,
-        this._passwordModel.specialCharacters,
-        this._passwordModel.latin1Characters,
+        _passwordModel.lowercaseLetters,
+        _passwordModel.uppercaseLetters,
+        _passwordModel.numbers,
+        _passwordModel.specialCharacters,
+        _passwordModel.latin1Characters,
       ];
 }
 

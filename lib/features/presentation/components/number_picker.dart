@@ -22,9 +22,9 @@ class NumberPicker extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          if (this.label != null)
+          if (label != null)
             Text(
-              this.label!,
+              label!,
               key: Key('label'),
               style: Theme.of(context).textTheme.headline6,
             ),
@@ -43,16 +43,16 @@ class NumberPicker extends StatelessWidget {
                   child: IconButton(
                     key: Key('icon-button-remove'),
                     icon: const Icon(Icons.remove),
-                    onPressed: this.value == this.minValue
-                        ? () => this.onChanged(this.maxValue)
-                        : () => this.onChanged(this.value - 1),
+                    onPressed: value == minValue
+                        ? () => onChanged(maxValue)
+                        : () => onChanged(value - 1),
                   ),
                 ),
               ),
               Expanded(
                 flex: 2,
                 child: Text(
-                  this.value.toString(),
+                  value.toString(),
                   key: Key('value'),
                   style: Theme.of(context).textTheme.headline3,
                   textAlign: TextAlign.center,
@@ -66,9 +66,9 @@ class NumberPicker extends StatelessWidget {
                   ),
                   child: IconButton(
                     key: Key('icon-button-add'),
-                    onPressed: this.value == this.maxValue
-                        ? () => this.onChanged(this.minValue)
-                        : () => this.onChanged(this.value + 1),
+                    onPressed: value == maxValue
+                        ? () => onChanged(minValue)
+                        : () => onChanged(value + 1),
                     icon: const Icon(Icons.add),
                   ),
                 ),

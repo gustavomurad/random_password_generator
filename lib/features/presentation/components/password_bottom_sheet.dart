@@ -24,7 +24,7 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [_buildHandle(), this.widget.child],
+        children: [_buildHandle(), widget.child],
       ),
     );
   }

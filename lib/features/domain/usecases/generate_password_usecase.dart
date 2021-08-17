@@ -6,7 +6,7 @@ class GeneratePasswordUsecase {
 
   GeneratePasswordUsecase({
     required PasswordRepository repository,
-  }) : this._repository = repository;
+  }) : _repository = repository;
 
   Future<List<String>> call({required PasswordModel passwordModel}) {
     return _repository.generatePassword(passwordModel: passwordModel);

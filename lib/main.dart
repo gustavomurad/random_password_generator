@@ -24,7 +24,7 @@ class RandomPasswordGeneratorApp extends StatelessWidget {
 
   RandomPasswordGeneratorApp({
     required SharedPreferences sharedPreferences,
-  }) : this._sharedPreferences = sharedPreferences;
+  }) : _sharedPreferences = sharedPreferences;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class RandomPasswordGeneratorApp extends StatelessWidget {
           create: (BuildContext context) => PreferenceBloc(
             repository: PreferenceRepositoryImpl(
               datasource: PreferenceDatasourceImpl(
-                preferences: this._sharedPreferences,
+                preferences: _sharedPreferences,
               ),
             ),
           ),

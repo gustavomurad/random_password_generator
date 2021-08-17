@@ -15,7 +15,7 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
 
   PasswordBloc({
     required PasswordRepository repository,
-  })  : this._repository = repository,
+  })  : _repository = repository,
         super(PasswordInitialState());
 
   @override
@@ -23,7 +23,7 @@ class PasswordBloc extends Bloc<PasswordEvents, PasswordState> {
     if (event is GenerateNewPassword) {
       try {
         final GeneratePasswordUsecase useCase = GeneratePasswordUsecase(
-          repository: this._repository,
+          repository: _repository,
         );
 
         yield PasswordSuccessState(

@@ -6,7 +6,7 @@ class LoadPreferencesUsecase {
 
   LoadPreferencesUsecase({
     required PreferenceRepository repository,
-  }) : this._repository = repository;
+  }) : _repository = repository;
 
   Future<PasswordModel?> call() {
     return _repository.loadPreferences();

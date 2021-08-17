@@ -205,10 +205,11 @@ class Password {
             if (includeLatin1Characters) ...latin1Characters
           ];
 
-          if (chars.isEmpty)
+          if (chars.isEmpty) {
             throw ArgumentError(
               'You must select at least one type of character!',
             );
+          }
 
           return List.generate(
             quantity,

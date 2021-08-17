@@ -23,10 +23,10 @@ void main() {
 
     await tester.tap(find.text(passwords.first));
 
-    passwords.forEach((element) {
-      final passwordFinder = find.widgetWithText(PasswordListItem, element);
+    for (var password in passwords) {
+      final passwordFinder = find.widgetWithText(PasswordListItem, password);
 
       expect(passwordFinder, findsOneWidget);
-    });
+    }
   });
 }

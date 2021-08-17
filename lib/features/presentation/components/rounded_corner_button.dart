@@ -15,18 +15,18 @@ class RoundedCornerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: this.onPressed,
+      onPressed: onPressed,
       style: TextButton.styleFrom(
         minimumSize: const Size(10, 40),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (this.icon != null) Icon(this.icon),
+          if (icon != null) Icon(icon),
           const SizedBox(
             width: 10,
           ),
-          if (this.label != null) Text(this.label!),
+          if (label != null) Text(label!),
         ],
       ),
     );

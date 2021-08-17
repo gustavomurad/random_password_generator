@@ -5,7 +5,7 @@ import 'package:random_password_generator/features/domain/models/password_model.
 
 import '../../../fixtures/fixture_reader.dart';
 
-main() {
+void main() {
   final PasswordModel passwordModel = PasswordModel(
     length: 20,
     quantity: 5,
@@ -33,7 +33,7 @@ main() {
         fixture('password_model.json'),
       );
 
-      final result = PasswordModel.fromJson(json: jsonMap);
+      final PasswordModel result = PasswordModel.fromJson(json: jsonMap);
 
       expect(result, passwordModel);
     });

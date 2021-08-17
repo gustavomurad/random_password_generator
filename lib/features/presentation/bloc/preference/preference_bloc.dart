@@ -16,14 +16,14 @@ class PreferenceBloc extends Bloc<PreferenceEvent, PreferenceState> {
 
   PreferenceBloc({
     required PreferenceRepository repository,
-  })  : this._repository = repository,
+  })  : _repository = repository,
         super(PreferenceInitialState());
 
   @override
   Stream<PreferenceState> mapEventToState(PreferenceEvent event) async* {
     if (event is SavePreferences) {
       try {
-        final usecase = SavePreferencesUsecase(repository: this._repository);
+        final usecase = SavePreferencesUsecase(repository: _repository);
 
         await usecase(passwordModel: event.passwordModel);
 
@@ -37,7 +37,7 @@ class PreferenceBloc extends Bloc<PreferenceEvent, PreferenceState> {
       }
     } else if (event is LoadPreferences) {
       try {
-        final usecase = LoadPreferencesUsecase(repository: this._repository);
+        final usecase = LoadPreferencesUsecase(repository: _repository);
 
         final PasswordModel? model = await usecase();
 

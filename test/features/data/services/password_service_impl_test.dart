@@ -22,9 +22,9 @@ main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
-      });
+      }
     });
   });
 }

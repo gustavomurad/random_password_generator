@@ -10,7 +10,7 @@ class PreferenceDatasourceImpl implements PreferenceDatasource {
 
   PreferenceDatasourceImpl({
     required SharedPreferences preferences,
-  }) : this._preferences = preferences;
+  }) : _preferences = preferences;
 
   @override
   Future<bool> savePreferences({required Map<String, dynamic> json}) async {

@@ -7,17 +7,17 @@ class PreferenceRepositoryImpl implements PreferenceRepository {
 
   PreferenceRepositoryImpl({
     required PreferenceDatasource datasource,
-  }) : this._datasource = datasource;
+  }) : _datasource = datasource;
 
   @override
   Future<PasswordModel?> loadPreferences() async {
-    final map = await this._datasource.loadPreferences();
+    final map = await _datasource.loadPreferences();
 
     return map != null ? PasswordModel.fromJson(json: map) : null;
   }
 
   @override
   Future<bool> savePreferences({required PasswordModel passwordModel}) {
-    return this._datasource.savePreferences(json: passwordModel.toJson());
+    return _datasource.savePreferences(json: passwordModel.toJson());
   }
 }

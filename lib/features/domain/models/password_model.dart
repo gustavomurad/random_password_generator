@@ -28,12 +28,12 @@ class PasswordModel extends Equatable {
 
   @override
   List<Object> get props => [
-        this.length,
-        this.quantity,
-        this.lowercaseLetters,
-        this.uppercaseLetters,
-        this.numbers,
-        this.specialCharacters,
-        this.latin1Characters,
+        length,
+        quantity,
+        lowercaseLetters,
+        uppercaseLetters,
+        numbers,
+        specialCharacters,
+        latin1Characters,
       ];
 }

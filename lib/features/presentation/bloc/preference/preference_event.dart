@@ -8,9 +8,9 @@ class SavePreferences extends PreferenceEvent {
 
   SavePreferences({
     required PasswordModel passwordModel,
-  }) : this._passwordModel = passwordModel;
+  }) : _passwordModel = passwordModel;
 
-  PasswordModel get passwordModel => this._passwordModel;
+  PasswordModel get passwordModel => _passwordModel;
 }
 
 class LoadPreferences extends PreferenceEvent {}

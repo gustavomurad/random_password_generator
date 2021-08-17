@@ -20,15 +20,15 @@ class CharacterChoiceToggleButton extends StatelessWidget {
       builder: (context, constraints) {
         return ToggleButtons(
           constraints: BoxConstraints.expand(
-            width: (constraints.biggest.width - 10) / this.children.length,
+            width: (constraints.biggest.width - 10) / children.length,
             height: 45,
           ),
           children: List.generate(
-            this.children.length,
-            (index) => createButton(this.children.elementAt(index)),
+            children.length,
+            (index) => createButton(children.elementAt(index)),
             growable: false,
           ),
-          isSelected: this.isSelected,
+          isSelected: isSelected,
           onPressed: (index) => onPressed(index),
           borderRadius: BorderRadius.circular(30),
         );
