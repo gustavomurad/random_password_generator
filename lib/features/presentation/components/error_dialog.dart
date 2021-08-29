@@ -11,7 +11,7 @@ class ErrorDialog {
 
   show() => showDialog<void>(
         useSafeArea: true,
-        context: this.context,
+        context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => AlertDialog(
           key: Key('error-dialog'),
@@ -30,7 +30,7 @@ class ErrorDialog {
               Expanded(
                 flex: 6,
                 child: Text(
-                  this.message,
+                  message,
                   key: Key('error-dialog-message'),
                   softWrap: true,
                   textAlign: TextAlign.justify,

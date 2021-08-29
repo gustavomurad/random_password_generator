@@ -7,12 +7,12 @@ class PasswordRepositoryImpl implements PasswordRepository {
 
   PasswordRepositoryImpl({
     required PasswordService service,
-  }) : this._service = service;
+  }) : _service = service;
 
   @override
   Future<List<String>> generatePassword({
     required PasswordModel passwordModel,
   }) {
-    return this._service.generatePassword(passwordModel: passwordModel);
+    return _service.generatePassword(passwordModel: passwordModel);
   }
 }

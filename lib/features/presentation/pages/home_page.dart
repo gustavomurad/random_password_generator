@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    this.l10n = AppLocalizations.of(context);
+    l10n = AppLocalizations.of(context);
     final currentBrightness = MediaQuery.of(context).platformBrightness;
     final theme = Theme.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -86,15 +86,15 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return PasswordBottomSheet(
           child: PasswordOptionsPage(
-            okButtonLabel: this.l10n?.ok,
+            okButtonLabel: l10n?.ok,
             onOkButtonPressed: (value) {
               BlocProvider.of<PreferenceBloc>(context).add(
                 SavePreferences(passwordModel: value),
               );
               setState(() {
-                this.length = value.length;
-                this.quantity = value.quantity;
-                this.toggleValues = [
+                length = value.length;
+                quantity = value.quantity;
+                toggleValues = [
                   value.lowercaseLetters,
                   value.uppercaseLetters,
                   value.numbers,
@@ -105,15 +105,15 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).pop();
               _generateNewPassword(value);
             },
-            cancelButtonLabel: this.l10n?.cancel,
+            cancelButtonLabel: l10n?.cancel,
             onCancelButtonPressed: () {
               Navigator.of(context).pop();
             },
-            quantityPickerLabel: this.l10n?.passwords,
-            quantityPickerValue: this.quantity,
-            lengthPickerLabel: this.l10n?.length,
-            lengthPickerValue: this.length,
-            toggleValues: this.toggleValues,
+            quantityPickerLabel: l10n?.passwords,
+            quantityPickerValue: quantity,
+            lengthPickerLabel: l10n?.length,
+            lengthPickerValue: length,
+            toggleValues: toggleValues,
           ),
         );
       },
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
       ClipboardData(text: password),
     );
 
-    _showSnackBar(message: this.l10n?.copyAllSnackBarMessage ?? '');
+    _showSnackBar(message: l10n?.copyAllSnackBarMessage ?? '');
   }
 
   void _showSnackBar({required String message}) {

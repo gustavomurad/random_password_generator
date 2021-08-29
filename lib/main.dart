@@ -6,17 +6,26 @@ import 'package:random_password_generator/core/styles/theme_light.dart';
 import 'package:random_password_generator/features/data/repositories/password_repository_impl.dart';
 import 'package:random_password_generator/features/data/repositories/preference_repository_impl.dart';
 import 'package:random_password_generator/features/data/services/password_service_impl.dart';
-import 'package:random_password_generator/features/data/services/preference_service_impl.dart';
+import 'package:random_password_generator/features/data/datasources/preference_datasource_impl.dart';
 import 'package:random_password_generator/features/presentation/bloc/password/password_bloc.dart';
 import 'package:random_password_generator/features/presentation/bloc/preference/preference_bloc.dart';
 import 'package:random_password_generator/features/presentation/pages/home_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(RandomPasswordGeneratorApp());
+void main() async {
+  final _sharedPreferences = await SharedPreferences.getInstance();
+
+  runApp(RandomPasswordGeneratorApp(sharedPreferences: _sharedPreferences));
 }
 
 class RandomPasswordGeneratorApp extends StatelessWidget {
+  final SharedPreferences _sharedPreferences;
+
+  RandomPasswordGeneratorApp({
+    required SharedPreferences sharedPreferences,
+  }) : _sharedPreferences = sharedPreferences;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -31,7 +40,9 @@ class RandomPasswordGeneratorApp extends StatelessWidget {
         BlocProvider<PreferenceBloc>(
           create: (BuildContext context) => PreferenceBloc(
             repository: PreferenceRepositoryImpl(
-              service: PreferenceServiceImpl(),
+              datasource: PreferenceDatasourceImpl(
+                preferences: _sharedPreferences,
+              ),
             ),
           ),
         ),

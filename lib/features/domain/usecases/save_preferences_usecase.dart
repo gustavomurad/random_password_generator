@@ -1,14 +1,14 @@
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/preference_repository.dart';
 
-class LoadPreferencesUsecase {
+class SavePreferencesUsecase {
   final PreferenceRepository _repository;
 
-  LoadPreferencesUsecase({
+  SavePreferencesUsecase({
     required PreferenceRepository repository,
-  }) : this._repository = repository;
+  }) : _repository = repository;
 
-  Future<PasswordModel?> call() {
-    return _repository.loadPreferences();
+  Future<bool> call({required PasswordModel passwordModel}) {
+    return _repository.savePreferences(passwordModel: passwordModel);
   }
 }

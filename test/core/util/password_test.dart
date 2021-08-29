@@ -138,10 +138,10 @@ void main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
         expect(_regexLowerCaseLetters.hasMatch(password), true);
-      });
+      }
     });
 
     test(
@@ -159,10 +159,10 @@ void main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
         expect(_regexUpperCaseLetters.hasMatch(password), true);
-      });
+      }
     });
 
     test('should be able to generate a numbers password of length 20',
@@ -179,10 +179,10 @@ void main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
         expect(_regexNumbers.hasMatch(password), true);
-      });
+      }
     });
     test(
         'should be able to generate a special characters password of length 20',
@@ -199,10 +199,10 @@ void main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
         expect(_regexSpecialCharacters.hasMatch(password), true);
-      });
+      }
     });
     test('should be able to generate a latin1 characters password of length 20',
         () async {
@@ -218,10 +218,10 @@ void main() {
 
       expect(passwords.length, 10);
 
-      passwords.forEach((password) {
+      for (var password in passwords) {
         expect(password.length, 20);
         expect(_regexLatin1Characters.hasMatch(password), true);
-      });
+      }
     });
     test('Throws a ArgumentError if none of the character typed are selected',
         () async {

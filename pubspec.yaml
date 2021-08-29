@@ -16,16 +16,18 @@ dependencies:
 
   cupertino_icons: ^1.0.3
   google_fonts: ^2.1.0
-  flutter_bloc: ^7.1.0
+  flutter_bloc: ^7.2.0
   intl: ^0.17.0
-  shared_preferences: ^2.0.6
-  logger: ^1.0.0
+  shared_preferences: ^2.0.7
+  logger: ^1.1.0
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  mockito: ^5.0.14
+  lints: ^1.0.1
+  mocktail: ^0.1.4
 flutter:
   uses-material-design: true
   generate: true

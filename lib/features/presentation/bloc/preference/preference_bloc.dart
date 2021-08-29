@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_password_generator/core/logger/application_logger.dart';
 import 'package:random_password_generator/features/domain/models/password_model.dart';
 import 'package:random_password_generator/features/domain/repositories/preference_repository.dart';
-import 'package:random_password_generator/features/domain/use_cases/load_preferences_usecase.dart';
-import 'package:random_password_generator/features/domain/use_cases/save_preferences_usecase.dart';
+import 'package:random_password_generator/features/domain/usecases/load_preferences_usecase.dart';
+import 'package:random_password_generator/features/domain/usecases/save_preferences_usecase.dart';
 
 part 'preference_event.dart';
 
@@ -16,16 +16,16 @@ class PreferenceBloc extends Bloc<PreferenceEvent, PreferenceState> {
 
   PreferenceBloc({
     required PreferenceRepository repository,
-  })  : this._repository = repository,
+  })  : _repository = repository,
         super(PreferenceInitialState());
 
   @override
   Stream<PreferenceState> mapEventToState(PreferenceEvent event) async* {
     if (event is SavePreferences) {
       try {
-        final usecase = SavePreferencesUsecase(repository: this._repository);
+        final usecase = SavePreferencesUsecase(repository: _repository);
 
-        usecase(passwordModel: event.passwordModel);
+        await usecase(passwordModel: event.passwordModel);
 
         yield PreferenceSuccessState(passwordModel: event.passwordModel);
       } catch (e) {
@@ -37,7 +37,7 @@ class PreferenceBloc extends Bloc<PreferenceEvent, PreferenceState> {
       }
     } else if (event is LoadPreferences) {
       try {
-        final usecase = LoadPreferencesUsecase(repository: this._repository);
+        final usecase = LoadPreferencesUsecase(repository: _repository);
 
         final PasswordModel? model = await usecase();
 

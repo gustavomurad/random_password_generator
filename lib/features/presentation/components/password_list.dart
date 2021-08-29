@@ -22,13 +22,13 @@ class PasswordList extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              final item = this.passwords.elementAt(index);
+              final item = passwords.elementAt(index);
               return PasswordListItem(
                 password: item,
-                onPressed: this.onPressed,
+                onPressed: onPressed,
               );
             },
-            childCount: this.passwords.length,
+            childCount: passwords.length,
           ),
         ),
       ],

@@ -46,9 +46,9 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
 
     BlocProvider.of<PreferenceBloc>(context).add(LoadPreferences());
 
-    this.length = this.widget.lengthPickerValue;
-    this.toggleValues = this.widget.toggleValues;
-    this.quantity = this.widget.quantityPickerValue;
+    length = widget.lengthPickerValue;
+    toggleValues = widget.toggleValues;
+    quantity = widget.quantityPickerValue;
   }
 
   @override
@@ -57,9 +57,9 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
       listener: (context, state) {
         if (state is PreferenceSuccessState) {
           setState(() {
-            this.length = state.passwordModel.length;
-            this.toggleValues = state.toggleValues;
-            this.quantity = state.passwordModel.quantity;
+            length = state.passwordModel.length;
+            toggleValues = state.toggleValues;
+            quantity = state.passwordModel.quantity;
           });
         }
       },
@@ -80,12 +80,12 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
                   children: [
                     Expanded(
                       child: NumberPicker(
-                        label: this.widget.quantityPickerLabel,
+                        label: widget.quantityPickerLabel,
                         minValue: 1,
                         maxValue: 100,
-                        value: this.quantity,
+                        value: quantity,
                         onChanged: (value) => setState(
-                          () => this.quantity = value,
+                          () => quantity = value,
                         ),
                       ),
                     ),
@@ -94,13 +94,13 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
                     ),
                     Expanded(
                       child: NumberPicker(
-                        label: this.widget.lengthPickerLabel,
+                        label: widget.lengthPickerLabel,
                         minValue: 1,
                         maxValue: 100,
-                        value: this.length,
+                        value: length,
                         onChanged: (value) {
                           setState(() {
-                            this.length = value;
+                            length = value;
                           });
                         },
                       ),
@@ -113,11 +113,11 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
                 CharacterChoiceToggleButton(
                   onPressed: (index) => _canPressCharacterToggle(index)
                       ? setState(() {
-                          this.toggleValues[index] = !this.toggleValues[index];
+                          toggleValues[index] = !toggleValues[index];
                         })
                       : null,
-                  isSelected: this.toggleValues,
-                  children: this.toggleLabels,
+                  isSelected: toggleValues,
+                  children: toggleLabels,
                 ),
                 const SizedBox(
                   height: 20,
@@ -127,10 +127,10 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
                     Flexible(
                       flex: 5,
                       child: RoundedCornerButton(
-                        onPressed: () => this.widget.onOkButtonPressed(
-                              passwordModel,
-                            ),
-                        label: this.widget.okButtonLabel,
+                        onPressed: () => widget.onOkButtonPressed(
+                          passwordModel,
+                        ),
+                        label: widget.okButtonLabel,
                       ),
                     ),
                     const SizedBox(
@@ -139,8 +139,8 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
                     Flexible(
                       flex: 5,
                       child: RoundedCornerButton(
-                        onPressed: this.widget.onCancelButtonPressed,
-                        label: this.widget.cancelButtonLabel,
+                        onPressed: widget.onCancelButtonPressed,
+                        label: widget.cancelButtonLabel,
                       ),
                     ),
                   ],
@@ -154,16 +154,16 @@ class _PasswordOptionsPageState extends State<PasswordOptionsPage> {
   }
 
   PasswordModel get passwordModel => PasswordModel(
-        length: this.length,
-        quantity: this.quantity,
-        lowercaseLetters: this.toggleValues[0],
-        uppercaseLetters: this.toggleValues[1],
-        numbers: this.toggleValues[2],
-        specialCharacters: this.toggleValues[3],
-        latin1Characters: this.toggleValues[4],
+        length: length,
+        quantity: quantity,
+        lowercaseLetters: toggleValues[0],
+        uppercaseLetters: toggleValues[1],
+        numbers: toggleValues[2],
+        specialCharacters: toggleValues[3],
+        latin1Characters: toggleValues[4],
       );
 
   bool _canPressCharacterToggle(int index) =>
-      (this.toggleValues.where((element) => element).length != 1 ||
-          index != this.toggleValues.lastIndexWhere((element) => element));
+      (toggleValues.where((element) => element).length != 1 ||
+          index != toggleValues.lastIndexWhere((element) => element));
 }

@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 part 'password_model_extension.dart';
 
-class PasswordModel {
+class PasswordModel extends Equatable {
   final int length;
   final int quantity;
   final bool lowercaseLetters;
@@ -22,5 +24,14 @@ class PasswordModel {
   factory PasswordModel.fromJson({required Map<String, dynamic> json}) =>
       PasswordModelExtension._fromMap(json: json);
 
-  Map<String, dynamic> toJson() => _toMap();
+  @override
+  List<Object> get props => [
+        length,
+        quantity,
+        lowercaseLetters,
+        uppercaseLetters,
+        numbers,
+        specialCharacters,
+        latin1Characters,
+      ];
 }

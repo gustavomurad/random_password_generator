@@ -17,9 +17,9 @@ class PasswordListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: MaterialButton(
         height: 50,
-        onPressed: () => this.onPressed(this.password),
+        onPressed: () => onPressed(password),
         child: Text(
-          this.password,
+          password,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline4,
         ),
