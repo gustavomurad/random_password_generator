@@ -12,12 +12,25 @@ main() {
   late PreferenceDatasource datasource;
   late SharedPreferences sharedPreferences;
 
-  setUp(() async {
-    SharedPreferences.setMockInitialValues({});
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({
+      "length": 20,
+      "quantity": 5,
+      "lowercaseLetters": true,
+      "uppercaseLetters": true,
+      "numbers": true,
+      "specialCharacters": true,
+      "latin1Characters": true
+    });
+    TestWidgetsFlutterBinding.ensureInitialized();
     sharedPreferences = await SharedPreferences.getInstance();
     datasource = PreferenceDatasourceImpl(
       preferences: sharedPreferences,
     );
+  });
+
+  tearDownAll(() async {
+    await sharedPreferences.clear();
   });
 
   group('Test PreferenceServiceImpl', () {
@@ -31,18 +44,17 @@ main() {
 
       expect(await datasource.savePreferences(json: json), true);
     });
-  });
 
-  // group('write', () {
-  //   test(
-  //       'completes '
-  //       'when sharedPreferences.setString completes', () async {
-  //     when(() => sharedPreferences.setString(any(), any()))
-  //         .thenAnswer((_) => Future.value(true));
-  //     expect(
-  //       persistentStorage.write(key: mockKey, value: mockValue),
-  //       completes,
-  //     );
-  //   });
-  // });
+    test('Test readPreferences method', () {
+      final PasswordModel passwordModel = PasswordModel.fromJson(
+        json: jsonDecode(
+          fixture('password_model.json'),
+        ),
+      );
+      final jsonMatcher = passwordModel.toJson();
+      final jsonExpect = datasource.loadPreferences();
+
+      expect(jsonExpect, jsonMatcher);
+    });
+  });
 }

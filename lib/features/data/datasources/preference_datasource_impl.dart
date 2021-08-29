@@ -18,8 +18,8 @@ class PreferenceDatasourceImpl implements PreferenceDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> loadPreferences() {
+  Map<String, dynamic> loadPreferences() {
     final configuration = _preferences.getString(cachedConfiguration);
-    return (configuration != null) ? jsonDecode(configuration) : null;
+    return (configuration != null) ? jsonDecode(configuration) : {};
   }
 }

@@ -24,8 +24,6 @@ class PasswordModel extends Equatable {
   factory PasswordModel.fromJson({required Map<String, dynamic> json}) =>
       PasswordModelExtension._fromMap(json: json);
 
-  Map<String, dynamic> toJson() => _toMap();
-
   @override
   List<Object> get props => [
         length,

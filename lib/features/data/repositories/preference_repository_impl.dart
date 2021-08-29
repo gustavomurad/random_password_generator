@@ -11,9 +11,9 @@ class PreferenceRepositoryImpl implements PreferenceRepository {
 
   @override
   Future<PasswordModel?> loadPreferences() async {
-    final map = await _datasource.loadPreferences();
+    final map = _datasource.loadPreferences();
 
-    return map != null ? PasswordModel.fromJson(json: map) : null;
+    return map.isNotEmpty ? PasswordModel.fromJson(json: map) : null;
   }
 
   @override

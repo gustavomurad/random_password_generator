@@ -1,7 +1,7 @@
 part of 'password_model.dart';
 
 extension PasswordModelExtension on PasswordModel {
-  Map<String, dynamic> _toMap() => {
+  Map<String, dynamic> toJson() => {
         'length': length,
         'quantity': quantity,
         'lowercaseLetters': lowercaseLetters,
