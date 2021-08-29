@@ -12,23 +12,30 @@ import '../../../fixtures/fixture_reader.dart';
 class PasswordServiceMock extends Mock implements PasswordService {}
 
 main() {
+  const List<String> passwords = [
+    "ºÊFm¶§Ó¾ÜÖâ¶!YéhÙ«¹ù",
+    ">:°a/ÓdjîÈR÷èí&Çå½¯v",
+    "ÕÔÅë?§mS³¸ÊmPwÓÀÉüºg"
+  ];
+
   late PasswordRepository repository;
   late PasswordService service;
-  late List<String> passwords;
   late PasswordModel model;
   setUpAll(() {
     service = PasswordServiceMock();
     repository = PasswordRepositoryImpl(service: service);
-    passwords = jsonDecode(fixture('passwords.json'))['passwords'];
+
     model = PasswordModel.fromJson(
       json: jsonDecode(fixture('password_model.json')),
     );
+
+    registerFallbackValue(model);
   });
 
   test('Test on PasswordRepositoryImpl', () async {
     when(
       () => repository.generatePassword(
-        passwordModel: any(
+        passwordModel: any<PasswordModel>(
           named: 'passwordModel',
           that: isNotNull,
         ),
