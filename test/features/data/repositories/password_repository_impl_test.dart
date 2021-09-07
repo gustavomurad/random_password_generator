@@ -32,9 +32,9 @@ main() {
     registerFallbackValue(model);
   });
 
-  test('Test on PasswordRepositoryImpl', () async {
+  test('Tests on PasswordRepositoryImpl', () async {
     when(
-      () => repository.generatePassword(
+      () => service.generatePassword(
         passwordModel: any<PasswordModel>(
           named: 'passwordModel',
           that: isNotNull,
