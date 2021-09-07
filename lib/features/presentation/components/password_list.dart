@@ -14,6 +14,7 @@ class PasswordList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      physics: BouncingScrollPhysics(),
       slivers: [
         SliverAppBar(
           title: const Text('Random Password Generator'),

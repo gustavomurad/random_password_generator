@@ -51,10 +51,14 @@ class _HomePageState extends State<HomePage> {
         body: BlocConsumer<PasswordBloc, PasswordState>(
           listener: (context, state) {
             if (state is PasswordErrorState) {
-              ErrorDialog(
+              showDialog<void>(
+                useSafeArea: true,
                 context: context,
-                message: state.errorMessage,
-              ).show();
+                barrierDismissible: false,
+                builder: (BuildContext context) => ErrorDialog(
+                  message: state.errorMessage,
+                ),
+              );
             }
           },
           builder: (context, state) {
