@@ -47,7 +47,7 @@ jobs:
          token: ${{ secrets.CODECOV_TOKEN }} 
          file: coverage/lcov.info
 
-#  test-bloc:
+#  test-business_components:
 #    name: Business logic
 #
 #    runs-on: ubuntu-latest
@@ -80,8 +80,8 @@ jobs:
 #        uses: actions/cache@v2
 #        with:
 #          path: ${{ env.FLUTTER_HOME }}/.pub-cache
-#          key: ${{ runner.os }}-bloc-pub--${{ hashFiles('**/pubspec.lock') }}
-#          restore-keys: ${{ runner.os }}-bloc-pub-
+#          key: ${{ runner.os }}-business_components-pub--${{ hashFiles('**/pubspec.lock') }}
+#          restore-keys: ${{ runner.os }}-business_components-pub-
 #
 #      - name: Download pub dependencies
 #        run: flutter pub get
@@ -97,4 +97,4 @@ jobs:
 #      - name: Upload code coverage to Codecov
 #        uses: codecov/codecov-action@v1
 #        with:
-#          flags: bloc
+#          flags: business_components
