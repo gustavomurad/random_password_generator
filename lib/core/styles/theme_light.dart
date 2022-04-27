@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:random_password_generator/core/styles/colors_theme_light.dart';
 
 abstract class AppThemeLight {
   static final ThemeData themeData = ThemeData.light().copyWith(
     primaryColor: ColorsThemeLight.primaryColor,
-    accentColor: ColorsThemeLight.secondaryColor,
     primaryColorDark: ColorsThemeLight.primaryDarkColor,
     primaryColorLight: ColorsThemeLight.primaryLightColor,
     primaryTextTheme: GoogleFonts.inconsolataTextTheme(
@@ -54,5 +52,7 @@ abstract class AppThemeLight {
         letterSpacing: 3,
       ),
     ),
+    colorScheme: ColorScheme.fromSwatch()
+        .copyWith(secondary: ColorsThemeLight.secondaryColor),
   );
 }
