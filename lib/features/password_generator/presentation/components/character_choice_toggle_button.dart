@@ -19,7 +19,7 @@ class CharacterChoiceToggleButton extends StatelessWidget {
         return ToggleButtons(
           constraints: BoxConstraints.expand(
             width: (constraints.biggest.width - 10) / children.length,
-            height: 45,
+            height: kMinInteractiveDimension,
           ),
           children: List.generate(
             children.length,

@@ -5,38 +5,26 @@ import 'package:random_password_generator/features/password_generator/data/repos
 import 'package:random_password_generator/features/password_generator/domain/models/preference_model.dart';
 import 'package:random_password_generator/features/password_generator/domain/usecases/password_generator_usecase_impl.dart';
 
+import '../../../../fixtures/model_mocks.dart';
 import 'password_generator_usecase_test.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   MockSpec<PasswordGeneratorRepository>(as: #PasswordGeneratorRepositoryMock),
 ])
 void main() {
-  const preferences = PreferenceModel(
-    length: 20,
-    quantity: 5,
-    lowercaseLetters: true,
-    uppercaseLetters: true,
-    numbers: true,
-    specialCharacters: true,
-    latin1Characters: true,
-  );
-
-  const passwords = <String>[
-    "ºÊFm¶§Ó¾ÜÖâ¶!YéhÙ«¹ù",
-    ">:°a/ÓdjîÈR÷èí&Çå½¯v",
-    "ÕÔÅë?§mS³¸ÊmPwÓÀÉüºg"
-  ];
+  final preferenceModel = ModelMocks.preferenceModel;
+  final passwords = ModelMocks.passwordList;
 
   final repository = PasswordGeneratorRepositoryMock();
   final usecase = PasswordGeneratorUsecaseImpl(repository: repository);
 
   test('Call generatePassword method', () async {
     when(
-      repository.generatePassword(preferenceModel: preferences),
+      repository.generatePassword(preferences: preferenceModel),
     ).thenAnswer((_) async => passwords);
 
     final passwordList =
-        await usecase.generatePassword(preferenceModel: preferences);
+        await usecase.generatePassword(preferences: preferenceModel);
 
     expect(passwordList, isA<List<String>>());
     expect(passwordList, isNotEmpty);
@@ -47,20 +35,20 @@ void main() {
 
   test('Call savePreferences method', () async {
     when(
-      repository.savePreferences(preferenceModel: preferences),
+      repository.savePreferences(preferences: preferenceModel),
     ).thenAnswer((_) async => true);
 
-    final isSaved = await usecase.savePreferences(preferenceModel: preferences);
+    final isSaved = await usecase.savePreferences(preferences: preferenceModel);
 
     expect(isSaved, true);
   });
 
   test('Call loadPreferences method', () async {
-    when(repository.loadPreferences()).thenAnswer((_) async => preferences);
+    when(repository.loadPreferences()).thenAnswer((_) async => preferenceModel);
 
-    final preferenceModel = await usecase.loadPreferences();
+    final preferences = await usecase.loadPreferences();
 
-    expect(preferenceModel, isA<PreferenceModel>());
-    expect(preferenceModel, isNotNull);
+    expect(preferences, isA<PreferenceModel>());
+    expect(preferences, isNotNull);
   });
 }

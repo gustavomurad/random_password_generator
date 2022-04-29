@@ -17,7 +17,10 @@ class RoundedCornerButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        minimumSize: const Size(10, 40),
+        minimumSize: const Size(
+          kMinInteractiveDimension,
+          kMinInteractiveDimension,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

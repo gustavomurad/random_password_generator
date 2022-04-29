@@ -19,7 +19,7 @@ class PasswordUI extends StatefulWidget {
 }
 
 class _PasswordUIState extends State<PasswordUI> {
-  final PasswordGeneratorCubit _cubit = CubitFactory.passwordGeneratorCubit;
+  final _cubit = CubitFactory.passwordGeneratorCubit;
   var _passwords = <String>[];
   late AppLocalizations? _l10n;
 

@@ -31,17 +31,16 @@ class PasswordGeneratorRepositoryMock extends _i1.Mock
 
   @override
   _i3.Future<List<String>> generatePassword(
-          {_i4.PreferenceModel? preferenceModel}) =>
+          {_i4.PreferenceModel? preferences}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #generatePassword, [], {#preferenceModel: preferenceModel}),
-              returnValue: Future<List<String>>.value(<String>[]))
-          as _i3.Future<List<String>>);
+          Invocation.method(#generatePassword, [], {#preferences: preferences}),
+          returnValue:
+              Future<List<String>>.value(<String>[])) as _i3
+          .Future<List<String>>);
   @override
-  _i3.Future<bool> savePreferences({_i4.PreferenceModel? preferenceModel}) =>
+  _i3.Future<bool> savePreferences({_i4.PreferenceModel? preferences}) =>
       (super.noSuchMethod(
-          Invocation.method(
-              #savePreferences, [], {#preferenceModel: preferenceModel}),
+          Invocation.method(#savePreferences, [], {#preferences: preferences}),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
   _i3.Future<_i4.PreferenceModel?> loadPreferences() =>
