@@ -6,33 +6,22 @@ import 'package:random_password_generator/features/password_generator/domain/mod
 import 'package:random_password_generator/features/password_generator/domain/usecases/password_generator_usecase.dart';
 import 'package:random_password_generator/features/password_generator/presentation/business_components/password_generator_cubit.dart';
 
+import '../../../../fixtures/model_mocks.dart';
 import 'password_generator_cubit_test.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   MockSpec<PasswordGeneratorUsecase>(as: #PasswordGeneratorUsecaseMock)
 ])
 void main() {
-  const preferenceModel = PreferenceModel(
-    length: 20,
-    quantity: 5,
-    lowercaseLetters: true,
-    uppercaseLetters: true,
-    numbers: true,
-    specialCharacters: true,
-    latin1Characters: true,
-  );
-  const passwords = <String>[
-    "ºÊFm¶§Ó¾ÜÖâ¶!YéhÙ«¹ù",
-    ">:°a/ÓdjîÈR÷èí&Çå½¯v",
-    "ÕÔÅë?§mS³¸ÊmPwÓÀÉüºg"
-  ];
+  final preferenceModel = ModelMocks.preferenceModel;
+  final passwords = ModelMocks.passwordList;
   final usecase = PasswordGeneratorUsecaseMock();
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when generatePassword is added',
     build: () {
       when(usecase.generatePassword(
-        preferenceModel: preferenceModel,
+        preferences: preferenceModel,
       )).thenAnswer((_) async => passwords);
 
       return PasswordGeneratorCubit(usecase: usecase);
@@ -62,7 +51,7 @@ void main() {
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when authenticateWithEmail receive an Exception',
     build: () {
-      when(usecase.generatePassword(preferenceModel: preferenceModel))
+      when(usecase.generatePassword(preferences: preferenceModel))
           .thenThrow(Exception('test exception'));
 
       return PasswordGeneratorCubit(usecase: usecase);
@@ -82,7 +71,7 @@ void main() {
     'Test Cubit when savePreferences is added',
     build: () {
       when(usecase.savePreferences(
-        preferenceModel: preferenceModel,
+        preferences: preferenceModel,
       )).thenAnswer((_) async => true);
 
       return PasswordGeneratorCubit(usecase: usecase);
@@ -108,7 +97,7 @@ void main() {
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when savePreferences receive an Exception',
     build: () {
-      when(usecase.savePreferences(preferenceModel: preferenceModel))
+      when(usecase.savePreferences(preferences: preferenceModel))
           .thenThrow(Exception('test exception'));
 
       return PasswordGeneratorCubit(usecase: usecase);

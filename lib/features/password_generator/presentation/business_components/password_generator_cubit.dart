@@ -19,7 +19,7 @@ class PasswordGeneratorCubit extends Cubit<PasswordGeneratorState> {
     try {
       emit(const PasswordGeneratorLoadingState());
       final passwords = await _usecase.generatePassword(
-        preferenceModel: preferenceModel,
+        preferences: preferenceModel,
       );
       emit(PasswordGeneratorSuccessState(passwords: passwords));
     } catch (exception) {
@@ -31,7 +31,7 @@ class PasswordGeneratorCubit extends Cubit<PasswordGeneratorState> {
   void savePreferences({required PreferenceModel preferenceModel}) async {
     try {
       emit(const PasswordGeneratorLoadingState());
-      await _usecase.savePreferences(preferenceModel: preferenceModel);
+      await _usecase.savePreferences(preferences: preferenceModel);
 
       emit(PasswordGeneratorSuccessState());
     } catch (exception) {

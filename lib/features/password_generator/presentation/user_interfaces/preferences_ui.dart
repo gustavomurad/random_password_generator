@@ -23,9 +23,9 @@ class PreferencesUI extends StatefulWidget {
 }
 
 class _PreferencesUIState extends State<PreferencesUI> {
-  final List<String> toggleLabels = ['abc', 'ABC', '123', '!@%', 'Âæß'];
-  final PasswordGeneratorCubit _cubit = CubitFactory.passwordGeneratorCubit;
-  PreferenceModel preferences = PreferenceModel();
+  static const _toggleLabels = <String>['abc', 'ABC', '123', '!@%', 'Âæß'];
+  final _cubit = CubitFactory.passwordGeneratorCubit;
+  var _preferences = PreferenceModel();
   late AppLocalizations _l10n;
 
   @override
@@ -42,7 +42,7 @@ class _PreferencesUIState extends State<PreferencesUI> {
       listener: (context, state) {
         if (state is PasswordGeneratorSuccessState) {
           setState(() {
-            preferences = state.preferences ?? PreferenceModel();
+            _preferences = state.preferences ?? PreferenceModel();
           });
         }
       },
@@ -66,9 +66,9 @@ class _PreferencesUIState extends State<PreferencesUI> {
                         label: _l10n.passwords,
                         minValue: 1,
                         maxValue: 100,
-                        value: preferences.quantity,
+                        value: _preferences.quantity,
                         onChanged: (value) => setState(
-                          () => preferences = preferences.copyWith(
+                          () => _preferences = _preferences.copyWith(
                             quantity: value,
                           ),
                         ),
@@ -82,9 +82,9 @@ class _PreferencesUIState extends State<PreferencesUI> {
                         label: _l10n.length,
                         minValue: 1,
                         maxValue: 100,
-                        value: preferences.length,
+                        value: _preferences.length,
                         onChanged: (value) => setState(
-                          () => preferences = preferences.copyWith(
+                          () => _preferences = _preferences.copyWith(
                             length: value,
                           ),
                         ),
@@ -97,28 +97,26 @@ class _PreferencesUIState extends State<PreferencesUI> {
                 ),
                 CharacterChoiceToggleButton(
                   onPressed: (index) => _canPressCharacterToggle(index)
-                      ? setState(() => preferences = _getToggleValues(index))
+                      ? setState(() => _preferences = _getToggleValues(index))
                       : null,
-                  isSelected: preferences.toggleValues,
-                  children: toggleLabels,
+                  isSelected: _preferences.toggleValues,
+                  children: _toggleLabels,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Row(
                   children: [
-                    Flexible(
-                      flex: 5,
+                    Expanded(
                       child: RoundedCornerButton(
-                        onPressed: () => widget.onOkButtonPressed(preferences),
+                        onPressed: () => widget.onOkButtonPressed(_preferences),
                         label: _l10n.ok,
                       ),
                     ),
                     const SizedBox(
                       width: 20,
                     ),
-                    Flexible(
-                      flex: 5,
+                    Expanded(
                       child: RoundedCornerButton(
                         onPressed: widget.onCancelButtonPressed,
                         label: _l10n.cancel,
@@ -135,26 +133,28 @@ class _PreferencesUIState extends State<PreferencesUI> {
   }
 
   bool _canPressCharacterToggle(int index) =>
-      (preferences.toggleValues.where((element) => element).length != 1 ||
+      (_preferences.toggleValues.where((element) => element).length != 1 ||
           index !=
-              preferences.toggleValues.lastIndexWhere((element) => element));
+              _preferences.toggleValues.lastIndexWhere((element) => element));
 
   PreferenceModel _getToggleValues(int index) {
     switch (index) {
       case 0:
-        return preferences.copyWith(
-            lowercaseLetters: !preferences.lowercaseLetters);
+        return _preferences.copyWith(
+            lowercaseLetters: !_preferences.lowercaseLetters);
       case 1:
-        return preferences.copyWith(
-            uppercaseLetters: !preferences.uppercaseLetters);
+        return _preferences.copyWith(
+            uppercaseLetters: !_preferences.uppercaseLetters);
       case 2:
-        return preferences.copyWith(numbers: !preferences.numbers);
+        return _preferences.copyWith(numbers: !_preferences.numbers);
       case 3:
-        return preferences.copyWith(
-            specialCharacters: !preferences.specialCharacters);
+        return _preferences.copyWith(
+            specialCharacters: !_preferences.specialCharacters);
+      case 4:
+        return _preferences.copyWith(
+            latin1Characters: !_preferences.latin1Characters);
       default:
-        return preferences.copyWith(
-            latin1Characters: !preferences.latin1Characters);
+        return PreferenceModel();
     }
   }
 }

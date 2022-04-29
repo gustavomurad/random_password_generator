@@ -10,17 +10,14 @@ class PasswordGeneratorUsecaseImpl implements PasswordGeneratorUsecase {
   }) : _repository = repository;
 
   @override
-  Future<List<String>> generatePassword({
-    required PreferenceModel preferenceModel,
-  }) =>
-      _repository.generatePassword(preferenceModel: preferenceModel);
+  Future<List<String>> generatePassword(
+          {required PreferenceModel preferences}) =>
+      _repository.generatePassword(preferences: preferences);
 
   @override
   Future<PreferenceModel?> loadPreferences() => _repository.loadPreferences();
 
   @override
-  Future<bool> savePreferences({
-    required PreferenceModel preferenceModel,
-  }) =>
-      _repository.savePreferences(preferenceModel: preferenceModel);
+  Future<bool> savePreferences({required PreferenceModel preferences}) =>
+      _repository.savePreferences(preferences: preferences);
 }

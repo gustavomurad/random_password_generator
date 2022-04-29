@@ -12,16 +12,16 @@ class PasswordGeneratorRepositoryImpl implements PasswordGeneratorRepository {
 
   @override
   Future<List<String>> generatePassword({
-    required PreferenceModel preferenceModel,
+    required PreferenceModel preferences,
   }) {
     return Password.generate(
-      length: preferenceModel.length,
-      quantity: preferenceModel.quantity,
-      includeLowercaseLetters: preferenceModel.lowercaseLetters,
-      includeUppercaseLetters: preferenceModel.uppercaseLetters,
-      includeNumbers: preferenceModel.numbers,
-      includeSpecialCharacters: preferenceModel.specialCharacters,
-      includeLatin1Characters: preferenceModel.latin1Characters,
+      length: preferences.length,
+      quantity: preferences.quantity,
+      includeLowercaseLetters: preferences.lowercaseLetters,
+      includeUppercaseLetters: preferences.uppercaseLetters,
+      includeNumbers: preferences.numbers,
+      includeSpecialCharacters: preferences.specialCharacters,
+      includeLatin1Characters: preferences.latin1Characters,
     );
   }
 
@@ -37,11 +37,11 @@ class PasswordGeneratorRepositoryImpl implements PasswordGeneratorRepository {
   }
 
   @override
-  Future<bool> savePreferences({required PreferenceModel preferenceModel}) async {
+  Future<bool> savePreferences({required PreferenceModel preferences}) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.setString(
       cachedConfiguration,
-      jsonEncode(preferenceModel.toJson()),
+      jsonEncode(preferences.toJson()),
     );
   }
 }

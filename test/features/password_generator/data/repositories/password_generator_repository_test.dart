@@ -2,21 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:random_password_generator/features/password_generator/data/repositories/password_generator_repository_impl.dart';
 import 'package:random_password_generator/features/password_generator/domain/models/preference_model.dart';
 
+import '../../../../fixtures/model_mocks.dart';
+
 void main() {
-  const PreferenceModel preferenceModel = PreferenceModel(
-    length: 20,
-    quantity: 5,
-    lowercaseLetters: true,
-    uppercaseLetters: true,
-    numbers: true,
-    specialCharacters: true,
-    latin1Characters: true,
-  );
+  final preferenceModel = ModelMocks.preferenceModel;
   const repository = PasswordGeneratorRepositoryImpl();
 
   test('Call generatePassword method', () async {
     final passwords = await repository.generatePassword(
-      preferenceModel: preferenceModel,
+      preferences: preferenceModel,
     );
 
     expect(passwords, isA<List<String>>());
@@ -28,7 +22,7 @@ void main() {
 
   test('Call savePreferences method', () async {
     final saved = await repository.savePreferences(
-      preferenceModel: preferenceModel,
+      preferences: preferenceModel,
     );
 
     expect(saved, true);
