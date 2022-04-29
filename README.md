@@ -8,7 +8,7 @@
 - Android Studio (Android Studio Bumblebee)
 - Emulator Android minimum API 21
 
-## Comandos úteis:
+## Useful commands for development:
 
 Run build_runner in order to generate Mockito test mocks:
 
