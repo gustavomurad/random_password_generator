@@ -7,7 +7,7 @@ void main() {
   late List<String> passwords;
 
   setUp(() async {
-    passwords = await Password.generate(length: 20);
+    passwords = Password.generate(length: 20);
   });
 
   testWidgets('PasswordListItem has a password', (WidgetTester tester) async {

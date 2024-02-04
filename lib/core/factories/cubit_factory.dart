@@ -4,7 +4,7 @@ import 'package:random_password_generator/features/password_generator/presentati
 
 class CubitFactory {
   static get passwordGeneratorCubit => PasswordGeneratorCubit(
-        usecase: PasswordGeneratorUsecaseImpl(
+        useCase: const PasswordGeneratorUseCaseImpl(
           repository: PasswordGeneratorRepositoryImpl(),
         ),
       );

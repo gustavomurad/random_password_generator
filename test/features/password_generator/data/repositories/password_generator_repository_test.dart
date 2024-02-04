@@ -9,15 +9,15 @@ void main() {
   const repository = PasswordGeneratorRepositoryImpl();
 
   test('Call generatePassword method', () async {
-    final passwords = await repository.generatePassword(
+    final passwords = repository.generatePassword(
       preferences: preferenceModel,
     );
 
     expect(passwords, isA<List<String>>());
     expect(passwords, isNotEmpty);
     expect(passwords.length, 5);
-    expect(passwords[0], isNotEmpty);
-    expect(passwords[0].length, 20);
+    expect(passwords.first, isNotEmpty);
+    expect(passwords.first.length, 20);
   });
 
   test('Call savePreferences method', () async {

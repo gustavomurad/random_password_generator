@@ -8,46 +8,46 @@ import 'package:random_password_generator/features/password_generator/domain/use
 part 'password_generator_state.dart';
 
 class PasswordGeneratorCubit extends Cubit<PasswordGeneratorState> {
-  final PasswordGeneratorUsecase _usecase;
+  final PasswordGeneratorUseCase _useCase;
 
   PasswordGeneratorCubit({
-    required PasswordGeneratorUsecase usecase,
-  })  : _usecase = usecase,
-        super(const PasswordGeneratorInitialState());
+    required PasswordGeneratorUseCase useCase,
+  })  : _useCase = useCase,
+        super(PasswordGeneratorState.initial());
 
-  void generatePassword({required PreferenceModel preferenceModel}) async {
+  void generatePassword({required PreferenceModel preferences}) {
     try {
-      emit(const PasswordGeneratorLoadingState());
-      final passwords = await _usecase.generatePassword(
-        preferences: preferenceModel,
+      emit(state.copyWith(cubitState: CubitState.loading));
+      final passwords = _useCase.generatePassword(
+        preferences: preferences,
       );
-      emit(PasswordGeneratorSuccessState(passwords: passwords));
+      emit(state.copyWith(cubitState: CubitState.success, passwords: passwords));
     } catch (exception) {
       developer.log(exception.toString());
-      emit(PasswordGeneratorErrorState(message: exception.toString()));
+      emit(state.copyWith(cubitState: CubitState.error, errorMessage: exception.toString()));
     }
   }
 
-  void savePreferences({required PreferenceModel preferenceModel}) async {
+  void savePreferences({required PreferenceModel preferences}) async {
     try {
-      emit(const PasswordGeneratorLoadingState());
-      await _usecase.savePreferences(preferences: preferenceModel);
+      emit(state.copyWith(cubitState: CubitState.loading));
+      await _useCase.savePreferences(preferences: preferences);
 
-      emit(PasswordGeneratorSuccessState());
+      emit(state.copyWith(cubitState: CubitState.success, preferences: preferences));
     } catch (exception) {
       developer.log(exception.toString());
-      emit(PasswordGeneratorErrorState(message: exception.toString()));
+      emit(state.copyWith(cubitState: CubitState.error, errorMessage: exception.toString()));
     }
   }
 
   void loadPreferences() async {
     try {
-      emit(const PasswordGeneratorLoadingState());
-      final preferences = await _usecase.loadPreferences();
-      emit(PasswordGeneratorSuccessState(preferences: preferences));
+      emit(state.copyWith(cubitState: CubitState.loading));
+      final preferences = await _useCase.loadPreferences();
+      emit(state.copyWith(cubitState: CubitState.success, preferences: preferences));
     } catch (exception) {
       developer.log(exception.toString());
-      emit(PasswordGeneratorErrorState(message: exception.toString()));
+      emit(state.copyWith(cubitState: CubitState.error, errorMessage: exception.toString()));
     }
   }
 }

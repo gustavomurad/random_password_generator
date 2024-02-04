@@ -6,11 +6,11 @@ class CharacterChoiceToggleButton extends StatelessWidget {
   final List<String> children;
 
   const CharacterChoiceToggleButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.isSelected,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +21,20 @@ class CharacterChoiceToggleButton extends StatelessWidget {
             width: (constraints.biggest.width - 10) / children.length,
             height: kMinInteractiveDimension,
           ),
+          isSelected: isSelected,
+          onPressed: (index) => onPressed(index),
+          borderRadius: BorderRadius.circular(30),
           children: List.generate(
             children.length,
             (index) => createButton(children.elementAt(index)),
             growable: false,
           ),
-          isSelected: isSelected,
-          onPressed: (index) => onPressed(index),
-          borderRadius: BorderRadius.circular(30),
         );
       },
     );
   }
 
   Widget createButton(String label) {
-    return Container(
-      child: Text(label),
-    );
+    return Text(label);
   }
 }

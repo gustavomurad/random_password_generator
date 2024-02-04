@@ -18,7 +18,7 @@ MaterialApp _buildAppWithDialog(Widget dialog,
                   builder: (BuildContext context) {
                     return MediaQuery(
                       data: MediaQuery.of(context)
-                          .copyWith(textScaleFactor: textScaleFactor),
+                          .copyWith(textScaler: TextScaler.linear(textScaleFactor)),
                       child: dialog,
                     );
                   },
@@ -37,7 +37,7 @@ main() {
     testWidgets('Subject exist, has a icon, button and message', (
       WidgetTester tester,
     ) async {
-      final Widget errorDialog = ErrorDialog(
+      const Widget errorDialog = ErrorDialog(
         message: 'This is a error message',
       );
 
@@ -46,16 +46,16 @@ main() {
       await tester.tap(find.text('X'));
       await tester.pumpAndSettle();
 
-      final dialog = find.byKey(Key('error-dialog'));
+      final dialog = find.byKey(const Key('error-dialog'));
       expect(dialog, findsOneWidget);
 
-      final icon = find.byKey(Key('error-dialog-icon'));
+      final icon = find.byKey(const Key('error-dialog-icon'));
       expect(icon, findsOneWidget);
 
-      final message = find.byKey(Key('error-dialog-message'));
+      final message = find.byKey(const Key('error-dialog-message'));
       expect(message, findsOneWidget);
 
-      final okButton = find.byKey(Key('error-ok-button'));
+      final okButton = find.byKey(const Key('error-ok-button'));
       expect(okButton, findsOneWidget);
     });
 
@@ -80,14 +80,14 @@ main() {
       final Future<bool?> result = showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
-          return ErrorDialog(
+          return const ErrorDialog(
             message: 'This is a error message',
           );
         },
       );
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
-      await tester.tap(find.byKey(Key('error-ok-button')));
+      await tester.tap(find.byKey(const Key('error-ok-button')));
       expect(await result, equals(true));
     });
   });

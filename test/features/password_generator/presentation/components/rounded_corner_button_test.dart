@@ -6,7 +6,7 @@ main() {
   testWidgets('RoundedCornerButton has a icon and label',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: RoundedCornerButton(
           label: 'REFRESH',
           icon: Icons.refresh,

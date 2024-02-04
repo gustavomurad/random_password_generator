@@ -6,15 +6,15 @@ class PasswordList extends StatelessWidget {
   final ValueChanged<String> onPressed;
 
   const PasswordList({
-    Key? key,
+    super.key,
     required this.passwords,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       slivers: [
         SliverAppBar(
           title: const Text('Random Password Generator'),

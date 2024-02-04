@@ -2,22 +2,19 @@ import 'package:random_password_generator/features/password_generator/data/repos
 import 'package:random_password_generator/features/password_generator/domain/models/preference_model.dart';
 import 'package:random_password_generator/features/password_generator/domain/usecases/password_generator_usecase.dart';
 
-class PasswordGeneratorUsecaseImpl implements PasswordGeneratorUsecase {
+class PasswordGeneratorUseCaseImpl implements PasswordGeneratorUseCase {
   final PasswordGeneratorRepository _repository;
 
-  const PasswordGeneratorUsecaseImpl({
+  const PasswordGeneratorUseCaseImpl({
     required PasswordGeneratorRepository repository,
   }) : _repository = repository;
 
   @override
-  Future<List<String>> generatePassword(
-          {required PreferenceModel preferences}) =>
-      _repository.generatePassword(preferences: preferences);
+  List<String> generatePassword({required PreferenceModel preferences}) => _repository.generatePassword(preferences: preferences);
 
   @override
   Future<PreferenceModel?> loadPreferences() => _repository.loadPreferences();
 
   @override
-  Future<bool> savePreferences({required PreferenceModel preferences}) =>
-      _repository.savePreferences(preferences: preferences);
+  Future<bool> savePreferences({required PreferenceModel preferences}) => _repository.savePreferences(preferences: preferences);
 }

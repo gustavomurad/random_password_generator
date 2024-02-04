@@ -5,11 +5,11 @@ import 'package:random_password_generator/core/styles/theme_light.dart';
 import 'package:random_password_generator/features/password_generator/presentation/user_interfaces/password_ui.dart';
 
 void main() {
-  runApp(RandomPasswordGeneratorApp());
+  runApp(const RandomPasswordGeneratorApp());
 }
 
 class RandomPasswordGeneratorApp extends StatelessWidget {
-  const RandomPasswordGeneratorApp();
+  const RandomPasswordGeneratorApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class RandomPasswordGeneratorApp extends StatelessWidget {
       theme: AppThemeLight.themeData,
       darkTheme: AppThemeDark.themeData,
       themeMode: ThemeMode.system,
-      home: PasswordUI(),
+      home: const PasswordUI(),
     );
   }
 }

@@ -11,7 +11,7 @@ class PasswordGeneratorRepositoryImpl implements PasswordGeneratorRepository {
   const PasswordGeneratorRepositoryImpl();
 
   @override
-  Future<List<String>> generatePassword({
+  List<String> generatePassword({
     required PreferenceModel preferences,
   }) {
     return Password.generate(
