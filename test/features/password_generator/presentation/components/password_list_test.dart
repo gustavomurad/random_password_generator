@@ -8,7 +8,7 @@ void main() {
   List<String> passwords = [];
 
   setUp(() async {
-    passwords = await Password.generate(length: 20, quantity: 5);
+    passwords = Password.generate(length: 20, quantity: 5);
   });
 
   testWidgets('PasswordList has 5 passwords', (WidgetTester tester) async {

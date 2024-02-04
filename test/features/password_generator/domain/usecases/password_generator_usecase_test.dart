@@ -16,21 +16,20 @@ void main() {
   final passwords = ModelMocks.passwordList;
 
   final repository = PasswordGeneratorRepositoryMock();
-  final usecase = PasswordGeneratorUsecaseImpl(repository: repository);
+  final usecase = PasswordGeneratorUseCaseImpl(repository: repository);
 
   test('Call generatePassword method', () async {
     when(
       repository.generatePassword(preferences: preferenceModel),
-    ).thenAnswer((_) async => passwords);
+    ).thenAnswer((_) => passwords);
 
-    final passwordList =
-        await usecase.generatePassword(preferences: preferenceModel);
+    final passwordList = usecase.generatePassword(preferences: preferenceModel);
 
     expect(passwordList, isA<List<String>>());
     expect(passwordList, isNotEmpty);
     expect(passwordList.length, 3);
-    expect(passwordList[0].length, 20);
-    expect(passwordList[0], isNotEmpty);
+    expect(passwordList.first.length, 20);
+    expect(passwordList.first, isNotEmpty);
   });
 
   test('Call savePreferences method', () async {

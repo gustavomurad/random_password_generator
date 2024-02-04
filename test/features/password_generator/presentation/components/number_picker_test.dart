@@ -55,7 +55,7 @@ main() {
         ),
       ));
 
-      final removeButton = find.byKey(Key('icon-button-remove'));
+      final removeButton = find.byKey(const Key('icon-button-remove'));
       await tester.tap(removeButton);
       expect(value, equals(2));
     });
@@ -77,7 +77,7 @@ main() {
         ),
       ));
 
-      final removeButton = find.byKey(Key('icon-button-remove'));
+      final removeButton = find.byKey(const Key('icon-button-remove'));
       await tester.tap(removeButton);
       expect(value, equals(maxValue));
     });
@@ -99,7 +99,7 @@ main() {
         ),
       ));
 
-      final addButton = find.byKey(Key('icon-button-add'));
+      final addButton = find.byKey(const Key('icon-button-add'));
       await tester.tap(addButton);
       expect(value, equals(4));
     });
@@ -121,7 +121,7 @@ main() {
         ),
       ));
 
-      final addButton = find.byKey(Key('icon-button-add'));
+      final addButton = find.byKey(const Key('icon-button-add'));
       await tester.tap(addButton);
       expect(value, equals(1));
     });

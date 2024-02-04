@@ -4,12 +4,12 @@ class PasswordBottomSheet extends StatefulWidget {
   final Widget child;
 
   const PasswordBottomSheet({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
-  _PasswordBottomSheetState createState() => _PasswordBottomSheetState();
+  State<PasswordBottomSheet> createState() => _PasswordBottomSheetState();
 }
 
 class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
@@ -18,9 +18,9 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
     return Container(
       width: MediaQuery.of(context).size.width,
       clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.transparent,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

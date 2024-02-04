@@ -5,22 +5,22 @@ class PasswordListItem extends StatelessWidget {
   final ValueChanged<String> onPressed;
 
   const PasswordListItem({
-    Key? key,
+    super.key,
     required this.password,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.all(8.0),
       child: MaterialButton(
         height: 50,
         onPressed: () => onPressed(password),
         child: Text(
           password,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
     );

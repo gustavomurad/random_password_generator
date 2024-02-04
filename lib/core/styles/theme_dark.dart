@@ -10,39 +10,38 @@ abstract class AppThemeDark {
     scaffoldBackgroundColor: ColorsThemeDark.primaryLightColor,
     textTheme: GoogleFonts.inconsolataTextTheme(
       ThemeData.dark().textTheme.copyWith(
-            headline3: TextStyle(
+            displaySmall: const TextStyle(
               color: ColorsThemeDark.primaryTextColor,
             ),
-            headline4: TextStyle(
+            headlineMedium: const TextStyle(
               color: ColorsThemeDark.primaryTextColor,
             ),
-            headline6: TextStyle(
+            titleLarge: const TextStyle(
               color: ColorsThemeDark.primaryTextColor,
             ),
           ),
     ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: ColorsThemeDark.primaryDarkColor,
       foregroundColor: ColorsThemeDark.primaryTextColor,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-          textStyle: TextStyle(
+          foregroundColor: ColorsThemeDark.primaryTextColor, textStyle: const TextStyle(
             letterSpacing: 2,
             fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
-          primary: ColorsThemeDark.primaryTextColor,
           backgroundColor: ColorsThemeDark.primaryLightColor),
     ),
-    appBarTheme: AppBarTheme(color: ColorsThemeDark.primaryColor),
+    appBarTheme: const AppBarTheme(color: ColorsThemeDark.primaryColor),
     toggleButtonsTheme: ToggleButtonsThemeData(
       fillColor: ColorsThemeDark.primaryLightColor,
       color: ColorsThemeDark.secondaryLightColor,
       selectedColor: ColorsThemeDark.primaryTextColor,
-      textStyle: TextStyle().copyWith(
+      textStyle: const TextStyle().copyWith(
         fontWeight: FontWeight.bold,
         letterSpacing: 3,
       ),

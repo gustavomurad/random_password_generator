@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:random_password_generator/core/dependency_injection/cubit_dependency_injection.dart';
+import 'package:random_password_generator/core/factories/cubit_factory.dart';
 import 'package:random_password_generator/features/password_generator/presentation/business_components/password_generator_cubit.dart';
 import 'package:random_password_generator/features/password_generator/presentation/components/error_dialog.dart';
 import 'package:random_password_generator/features/password_generator/presentation/components/password_bottom_sheet.dart';
@@ -10,18 +10,17 @@ import 'package:random_password_generator/features/password_generator/presentati
 import 'package:random_password_generator/features/password_generator/presentation/user_interfaces/preferences_ui.dart';
 
 class PasswordUI extends StatefulWidget {
-  PasswordUI({
-    Key? key,
-  }) : super(key: key);
+  const PasswordUI({
+    super.key,
+  });
 
   @override
-  _PasswordUIState createState() => _PasswordUIState();
+  State<PasswordUI> createState() => _PasswordUIState();
 }
 
 class _PasswordUIState extends State<PasswordUI> {
-  final _cubit = CubitFactory.passwordGeneratorCubit;
-  var _passwords = <String>[];
   late AppLocalizations? _l10n;
+  final _cubit = CubitFactory.passwordGeneratorCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -40,74 +39,56 @@ class _PasswordUIState extends State<PasswordUI> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: theme.primaryColor,
-          onPressed: () => _showPasswordOptions(),
-          child: Icon(Icons.add),
+          onPressed: () => _showPasswordOptions(_cubit),
+          child: const Icon(Icons.add),
         ),
-        body: BlocListener<PasswordGeneratorCubit, PasswordGeneratorState>(
+        body: BlocConsumer<PasswordGeneratorCubit, PasswordGeneratorState>(
           bloc: _cubit,
-          listener: passwordListener,
-          child: Center(
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: PasswordList(
-                    onPressed: (value) => _copyPassword(password: value),
-                    passwords: _passwords,
+          listener: (_, currentState) {
+            if (currentState.cubitState.isError) {
+              showDialog<void>(
+                useSafeArea: true,
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) => ErrorDialog(message: currentState.errorMessage ?? ''),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Center(
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: PasswordList(
+                      onPressed: (value) => _copyPassword(password: value),
+                      passwords: state.passwords,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
-  void passwordListener(
-    BuildContext context,
-    PasswordGeneratorState state,
-  ) {
-    if (state is PasswordGeneratorErrorState) {
-      showDialog<void>(
-        useSafeArea: true,
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => ErrorDialog(message: state.message),
-      );
-    } else if (state is PasswordGeneratorSuccessState) {
-      setState(() {
-        _passwords = state.passwords ?? [];
-      });
-    }
-  }
-
-  void _showPasswordOptions() {
+  void _showPasswordOptions(PasswordGeneratorCubit cubit) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
       builder: (context) {
         return PasswordBottomSheet(
-          child: PreferencesUI(
-            onOkButtonPressed: (preferenceModel) {
-              setState(() {
-                Navigator.of(context).pop();
-                _cubit.savePreferences(preferenceModel: preferenceModel);
-                _cubit.generatePassword(preferenceModel: preferenceModel);
-              });
-            },
-            onCancelButtonPressed: () => Navigator.of(context).pop(),
-          ),
+          child: PreferencesUI(cubit: cubit),
         );
       },
     );
   }
 
   void _copyPassword({required String password}) {
-    Clipboard.setData(
-      ClipboardData(text: password),
-    );
+    Clipboard.setData(ClipboardData(text: password));
 
     _showSnackBar(message: _l10n?.copyAllSnackBarMessage ?? '');
   }
@@ -115,23 +96,20 @@ class _PasswordUIState extends State<PasswordUI> {
   void _showSnackBar({required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: const Duration(milliseconds: 1500),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+        key: const Key("SnackBarMessage"),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1, color: Colors.white),
         ),
         backgroundColor: Theme.of(context).primaryColorDark,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        content: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text(
-            message,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-                color: Colors.white),
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
           ),
         ),
       ),

@@ -9,130 +9,113 @@ import 'package:random_password_generator/features/password_generator/presentati
 import '../../../../fixtures/model_mocks.dart';
 import 'password_generator_cubit_test.mocks.dart';
 
-@GenerateMocks([], customMocks: [
-  MockSpec<PasswordGeneratorUsecase>(as: #PasswordGeneratorUsecaseMock)
-])
+@GenerateMocks([], customMocks: [MockSpec<PasswordGeneratorUseCase>(as: #PasswordGeneratorUsecaseMock)])
 void main() {
   final preferenceModel = ModelMocks.preferenceModel;
   final passwords = ModelMocks.passwordList;
-  final usecase = PasswordGeneratorUsecaseMock();
+  final useCase = PasswordGeneratorUsecaseMock();
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when generatePassword is added',
     build: () {
-      when(usecase.generatePassword(
+      when(useCase.generatePassword(
         preferences: preferenceModel,
-      )).thenAnswer((_) async => passwords);
+      )).thenAnswer((_) => passwords);
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
     act: (cubit) => cubit.generatePassword(
-      preferenceModel: preferenceModel,
+      preferences: preferenceModel,
     ),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorSuccessState>(),
-    ],
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final state = (cubit.state as PasswordGeneratorSuccessState);
-      final passwordList = state.passwords;
-      final preferences = state.preferences;
+      final passwordList = cubit.state.passwords;
+      final preferences = cubit.state.preferences;
 
       expect(passwordList, isNotNull);
       expect(passwordList, isNotEmpty);
-      expect(passwordList?.length, 3);
-      expect(passwordList?[0], isNotEmpty);
-      expect(passwordList?[0].length, 20);
+      expect(passwordList.length, 3);
+      expect(passwordList.first, isNotEmpty);
+      expect(passwordList.first.length, 20);
 
-      expect(preferences, isNull);
+      expect(preferences, isNotNull);
     },
   );
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when authenticateWithEmail receive an Exception',
     build: () {
-      when(usecase.generatePassword(preferences: preferenceModel))
-          .thenThrow(Exception('test exception'));
+      when(useCase.generatePassword(preferences: preferenceModel)).thenThrow(Exception('test exception'));
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
-    act: (cubit) => cubit.generatePassword(preferenceModel: preferenceModel),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorErrorState>(),
-    ],
+    act: (cubit) => cubit.generatePassword(preferences: preferenceModel),
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final message = (cubit.state as PasswordGeneratorErrorState).message;
-      expect(message, 'Exception: test exception');
+      expect(cubit.state.errorMessage, isNotNull);
+      expect(cubit.state.errorMessage, isNotEmpty);
+      expect(cubit.state.errorMessage, 'Exception: test exception');
     },
   );
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when savePreferences is added',
     build: () {
-      when(usecase.savePreferences(
+      when(useCase.savePreferences(
         preferences: preferenceModel,
       )).thenAnswer((_) async => true);
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
     act: (cubit) => cubit.savePreferences(
-      preferenceModel: preferenceModel,
+      preferences: preferenceModel,
     ),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorSuccessState>(),
-    ],
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final state = (cubit.state as PasswordGeneratorSuccessState);
-      final passwordList = state.passwords;
-      final preferences = state.preferences;
+      final passwordList = cubit.state.passwords;
+      final preferences = cubit.state.preferences;
 
-      expect(passwordList, isNull);
-
-      expect(preferences, isNull);
+      expect(passwordList, isNotNull);
+      expect(passwordList, isEmpty);
+      expect(preferences, isNotNull);
     },
   );
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when savePreferences receive an Exception',
     build: () {
-      when(usecase.savePreferences(preferences: preferenceModel))
-          .thenThrow(Exception('test exception'));
+      when(useCase.savePreferences(preferences: preferenceModel)).thenThrow(Exception('test exception'));
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
-    act: (cubit) => cubit.savePreferences(preferenceModel: preferenceModel),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorErrorState>(),
-    ],
+    act: (cubit) => cubit.savePreferences(preferences: preferenceModel),
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final message = (cubit.state as PasswordGeneratorErrorState).message;
-      expect(message, 'Exception: test exception');
+      expect(cubit.state.errorMessage, isNotNull);
+      expect(cubit.state.errorMessage, isNotEmpty);
+      expect(cubit.state.errorMessage, 'Exception: test exception');
     },
   );
 
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when loadPreferences is added',
     build: () {
-      when(usecase.loadPreferences()).thenAnswer((_) async => preferenceModel);
+      when(useCase.loadPreferences()).thenAnswer((_) async => preferenceModel);
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
     act: (cubit) => cubit.loadPreferences(),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorSuccessState>(),
-    ],
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final state = (cubit.state as PasswordGeneratorSuccessState);
-      final passwordList = state.passwords;
-      final preferences = state.preferences;
+      final passwordList = cubit.state.passwords;
+      final preferences = cubit.state.preferences;
 
-      expect(passwordList, isNull);
-
-      expect(preferences, isNotNull);
+      expect(passwordList, isNotNull);
       expect(preferences, isA<PreferenceModel>());
     },
   );
@@ -140,18 +123,17 @@ void main() {
   blocTest<PasswordGeneratorCubit, PasswordGeneratorState>(
     'Test Cubit when loadPreferences receive an Exception',
     build: () {
-      when(usecase.loadPreferences()).thenThrow(Exception('test exception'));
+      when(useCase.loadPreferences()).thenThrow(Exception('test exception'));
 
-      return PasswordGeneratorCubit(usecase: usecase);
+      return PasswordGeneratorCubit(useCase: useCase);
     },
     act: (cubit) => cubit.loadPreferences(),
-    expect: () => [
-      isA<PasswordGeneratorLoadingState>(),
-      isA<PasswordGeneratorErrorState>(),
-    ],
+    skip: 1,
+    expect: () => [isA<PasswordGeneratorState>()],
     verify: (cubit) {
-      final message = (cubit.state as PasswordGeneratorErrorState).message;
-      expect(message, 'Exception: test exception');
+      expect(cubit.state.errorMessage, isNotNull);
+      expect(cubit.state.errorMessage, isNotEmpty);
+      expect(cubit.state.errorMessage, 'Exception: test exception');
     },
   );
 }

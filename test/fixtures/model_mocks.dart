@@ -1,7 +1,7 @@
 import 'package:random_password_generator/features/password_generator/domain/models/preference_model.dart';
 
 class ModelMocks {
-  static get preferenceModel => PreferenceModel(
+  static get preferenceModel => const PreferenceModel(
         length: 20,
         quantity: 5,
         lowercaseLetters: true,

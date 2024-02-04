@@ -12,42 +12,41 @@ abstract class AppThemeLight {
     ),
     textTheme: GoogleFonts.inconsolataTextTheme(
       ThemeData.dark().textTheme.copyWith(
-            headline3: TextStyle(
+            displaySmall: const TextStyle(
               color: ColorsThemeLight.secondaryTextColor,
             ),
-            headline4: TextStyle(
+            headlineMedium: const TextStyle(
               color: ColorsThemeLight.primaryDarkColor,
             ),
-            headline6: TextStyle(
+            titleLarge: const TextStyle(
               color: ColorsThemeLight.secondaryTextColor,
             ),
           ),
     ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: ColorsThemeLight.primaryLightColor,
       foregroundColor: ColorsThemeLight.secondaryLightColor,
     ),
-    iconTheme: IconThemeData(color: ColorsThemeLight.secondaryLightColor),
+    iconTheme: const IconThemeData(color: ColorsThemeLight.secondaryLightColor),
     highlightColor: ColorsThemeLight.primaryLightColor,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: TextStyle(
+        foregroundColor: ColorsThemeLight.secondaryLightColor, textStyle: const TextStyle(
           letterSpacing: 2,
           fontWeight: FontWeight.bold,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        primary: ColorsThemeLight.secondaryLightColor,
         backgroundColor: ColorsThemeLight.primaryLightColor,
       ),
     ),
-    appBarTheme: AppBarTheme(color: ColorsThemeLight.primaryLightColor),
+    appBarTheme: const AppBarTheme(color: ColorsThemeLight.primaryLightColor),
     toggleButtonsTheme: ToggleButtonsThemeData(
       fillColor: ColorsThemeLight.primaryLightColor,
       color: ColorsThemeLight.primaryDarkColor,
       selectedColor: ColorsThemeLight.secondaryLightColor,
-      textStyle: TextStyle().copyWith(
+      textStyle: const TextStyle().copyWith(
         fontWeight: FontWeight.bold,
         letterSpacing: 3,
       ),
