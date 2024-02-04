@@ -10,15 +10,12 @@ import 'package:random_password_generator/features/password_generator/presentati
 class PreferencesUI extends StatelessWidget {
   static const _toggleLabels = <String>['abc', 'ABC', '123', '!@%', 'Âæß'];
 
-  final PasswordGeneratorCubit cubit;
-
-  const PreferencesUI({super.key, required this.cubit});
+  const PreferencesUI({super.key});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return BlocBuilder<PasswordGeneratorCubit, PasswordGeneratorState>(
-      bloc: cubit,
       builder: (context, state) {
         return LayoutBuilder(
           builder: (context, constraints) {
@@ -41,7 +38,8 @@ class PreferencesUI extends StatelessWidget {
                           minValue: 1,
                           maxValue: 100,
                           value: state.preferences.quantity,
-                          onChanged: (quantity) => cubit.savePreferences(preferences: state.preferences.copyWith(quantity: quantity)),
+                          onChanged: (quantity) =>
+                              context.read<PasswordGeneratorCubit>().savePreferences(preferences: state.preferences.copyWith(quantity: quantity)),
                         ),
                       ),
                       const SizedBox(
@@ -53,7 +51,8 @@ class PreferencesUI extends StatelessWidget {
                           minValue: 1,
                           maxValue: 100,
                           value: state.preferences.length,
-                          onChanged: (length) => cubit.savePreferences(preferences: state.preferences.copyWith(length: length)),
+                          onChanged: (length) =>
+                              context.read<PasswordGeneratorCubit>().savePreferences(preferences: state.preferences.copyWith(length: length)),
                         ),
                       ),
                     ],
@@ -63,7 +62,7 @@ class PreferencesUI extends StatelessWidget {
                   ),
                   CharacterChoiceToggleButton(
                     onPressed: (index) => _canPressCharacterToggle(index, state.preferences)
-                        ? cubit.savePreferences(preferences: _getToggleValues(index, state.preferences))
+                        ? context.read<PasswordGeneratorCubit>().savePreferences(preferences: _getToggleValues(index, state.preferences))
                         : null,
                     isSelected: state.preferences.toggleValues,
                     children: _toggleLabels,
@@ -76,7 +75,7 @@ class PreferencesUI extends StatelessWidget {
                       Expanded(
                         child: RoundedCornerButton(
                           onPressed: () {
-                            cubit.generatePassword(preferences: state.preferences);
+                            context.read<PasswordGeneratorCubit>().generatePassword(preferences: state.preferences);
                             Navigator.of(context).pop();
                           },
                           label: l10n.ok,
